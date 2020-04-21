@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/request_icon"
+            android:title="@string/menu_home" />
+        <item
+            android:id="@+id/nav_request"
+            android:icon="@drawable/request_icon"
+            android:title="@string/menu_request" />
+        <item
+            android:id="@+id/nav_qc"
+            android:icon="@drawable/request_icon"
+            android:title="@string/menu_qc" />
+        <item
+            android:id="@+id/nav_customer"
+            android:icon="@drawable/request_icon"
+            android:title="Customer Used" />
+        <item
+            android:id="@+id/nav_refurbised"
+            android:icon="@drawable/request_icon"
+            android:title="Refurbised" />
+        <item
+            android:id="@+id/nav_stores"
+            android:icon="@drawable/request_icon"
+            android:title="Stores" />
+
+        <item
+            android:id="@+id/nav_warehouse"
+            android:icon="@drawable/request_icon"
+            android:title="Warehouse" /><item
+            android:id="@+id/nav_return"
+            android:icon="@drawable/request_icon"
+            android:title="Return" />
+    </group>
+</menu>
