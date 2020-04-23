@@ -96,7 +96,7 @@ public class AllListDatum {
     private Object exchange;
     @SerializedName("barcode_scan")
     @Expose
-    private Object barcodeScan;
+    private String barcodeScan;
     @SerializedName("category_type")
     @Expose
     private Object categoryType;
@@ -377,11 +377,11 @@ public class AllListDatum {
         this.exchange = exchange;
     }
 
-    public Object getBarcodeScan() {
+    public String getBarcodeScan() {
         return barcodeScan;
     }
 
-    public void setBarcodeScan(Object barcodeScan) {
+    public void setBarcodeScan(String barcodeScan) {
         this.barcodeScan = barcodeScan;
     }
 

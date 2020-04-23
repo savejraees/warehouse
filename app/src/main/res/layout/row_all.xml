@@ -78,15 +78,15 @@
                 </LinearLayout>
 
 
-                <TextView
-                    android:id="@+id/txtPriceAll"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="abcd"
-                    android:textSize="15dp"
-                    android:textColor="@android:color/black">
+<!--                <TextView-->
+<!--                    android:id="@+id/txtPriceAll"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="abcd"-->
+<!--                    android:textSize="15dp"-->
+<!--                    android:textColor="@android:color/black">-->
 
-                </TextView>
+<!--                </TextView>-->
 
                 <TextView
                     android:id="@+id/txtCategoryAll"
@@ -123,11 +123,10 @@
                     android:layout_width="150dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-
                     android:textAllCaps="false"
                     android:textColor="@android:color/white"
                     android:background="@drawable/loginbuttonshape"
-                    android:text="Scan"
+                    android:text="Ok"
 
                     />
             </LinearLayout>
