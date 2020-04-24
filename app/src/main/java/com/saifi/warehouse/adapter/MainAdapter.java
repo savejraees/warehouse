@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -35,7 +36,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.TotalHolder> {
 
     Context context;
     ArrayList<MainCatogryModel> list;
-    int index =-1;
+    int index = -1;
 
     public MainAdapter(Context context, ArrayList<MainCatogryModel> list) {
         this.context = context;
@@ -45,7 +46,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.TotalHolder> {
     @NonNull
     @Override
     public MainAdapter.TotalHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.row_main,parent,false);
+        View view = LayoutInflater.from(context).inflate(R.layout.row_main, parent, false);
         return new MainAdapter.TotalHolder(view);
 
     }
@@ -61,67 +62,58 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.TotalHolder> {
             public void onClick(View view) {
                 index = position;
                 notifyDataSetChanged();
-                if(index==0){
+                if (index == 0) {
+
                     FragmentManager fragmentManager = ((MainActivity) context).getSupportFragmentManager();
-                    HomeFragment frag = new HomeFragment();
-                    fragmentManager.beginTransaction().add(R.id.frame,frag,frag.getTag()).commit();
-                }
-                else if(index==1){
-                    FragmentManager fragmentManager = ((MainActivity) context).getSupportFragmentManager();
+                    if(fragmentManager.getBackStackEntryCount()>0){
+                        for (int i = 0; i < fragmentManager.getBackStackEntryCount(); ++i) {
+                            fragmentManager.popBackStack();
+                        }
+                    }
+
+                        HomeFragment frag = new HomeFragment();
+                        fragmentManager.beginTransaction().add(R.id.frame, frag, frag.getTag()).commit();
+
+
+                } else if (index == 1) {
                     RequestFragment frag = new RequestFragment();
-                    fragmentManager.beginTransaction().replace(R.id.frame,frag,frag.getTag())
-                            .addToBackStack(null).commit();
-                }
-               else if(index==2){
-                    FragmentManager fragmentManager = ((MainActivity) context).getSupportFragmentManager();
+                    replaceFragment(frag);
+                } else if (index == 2) {
                     QCFragment frag = new QCFragment();
-                    fragmentManager.beginTransaction().replace(R.id.frame,frag,frag.getTag())
-                            .addToBackStack(null).commit();
-                }
-               else if(index==3){
-                    FragmentManager fragmentManager = ((MainActivity) context).getSupportFragmentManager();
+                    replaceFragment(frag);
+                } else if (index == 3) {
                     OpenBoxFragment frag = new OpenBoxFragment();
-                    fragmentManager.beginTransaction().replace(R.id.frame,frag,frag.getTag())
-                            .addToBackStack(null).commit();
-                }
-               else if(index==4){
-                    FragmentManager fragmentManager = ((MainActivity) context).getSupportFragmentManager();
+                    replaceFragment(frag);
+                } else if (index == 4) {
                     CustomerUsedFragment frag = new CustomerUsedFragment();
-                    fragmentManager.beginTransaction().replace(R.id.frame,frag,frag.getTag())
-                            .addToBackStack(null).commit();
-                }
-               else if(index==5){
-                    FragmentManager fragmentManager = ((MainActivity) context).getSupportFragmentManager();
+                    replaceFragment(frag);
+                } else if (index == 5) {
                     RefurbisedFragment frag = new RefurbisedFragment();
-                    fragmentManager.beginTransaction().replace(R.id.frame,frag,frag.getTag())
-                            .addToBackStack(null).commit();
-                }
-               else if(index==6){
-                    FragmentManager fragmentManager = ((MainActivity) context).getSupportFragmentManager();
+                    replaceFragment(frag);
+                } else if (index == 6) {
                     StoresFragment frag = new StoresFragment();
-                    fragmentManager.beginTransaction().replace(R.id.frame,frag,frag.getTag())
-                            .addToBackStack(null).commit();
-                }
-               else if(index==7){
-                    FragmentManager fragmentManager = ((MainActivity) context).getSupportFragmentManager();
+                    replaceFragment(frag);
+                } else if (index == 7) {
                     WarehouseFragment frag = new WarehouseFragment();
-                    fragmentManager.beginTransaction().replace(R.id.frame,frag,frag.getTag())
-                            .addToBackStack(null).commit();
-                }
-               else if(index==8){
-                    FragmentManager fragmentManager = ((MainActivity) context).getSupportFragmentManager();
+                    replaceFragment(frag);
+                } else if (index == 8) {
                     ReturnFragment frag = new ReturnFragment();
-                    fragmentManager.beginTransaction().replace(R.id.frame,frag,frag.getTag())
-                            .addToBackStack(null).commit();
+                    replaceFragment(frag);
                 }
             }
         });
-        if(index==position){
+        if (index == position) {
             holder.linearLaoutMain.setBackgroundColor(Color.parseColor("#DDA90C"));
-        }else{
+        } else {
             holder.linearLaoutMain.setBackgroundColor(Color.parseColor("#066e8a"));
 
         }
+    }
+
+    public void replaceFragment(Fragment frag) {
+        FragmentManager fragmentManager = ((MainActivity) context).getSupportFragmentManager();
+        fragmentManager.beginTransaction().replace(R.id.frame, frag, frag.getTag())
+                .addToBackStack(null).commit();
     }
 
     @Override
@@ -134,6 +126,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.TotalHolder> {
         TextView txtMAin;
         ImageView imgMAin;
         LinearLayout linearLaoutMain;
+
         public TotalHolder(@NonNull View itemView) {
             super(itemView);
             txtMAin = itemView.findViewById(R.id.txtMAin);

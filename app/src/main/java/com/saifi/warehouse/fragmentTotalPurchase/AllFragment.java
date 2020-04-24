@@ -72,7 +72,10 @@ public class AllFragment extends Fragment implements RecyclerView.OnScrollChange
     TextView txtClear;
     ImageView imgScanAll;
     boolean scanAdapterFragment =false;
+    int scanValue=1;
     SessonManager sessonManager;
+
+
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -100,9 +103,16 @@ public class AllFragment extends Fragment implements RecyclerView.OnScrollChange
         txtClear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                edtsearchAll.getText().clear();
-                ((MainActivity)getActivity()).barcode ="";
-               // edtsearchAll.setHint("Search Here");
+//                edtsearchAll.getText().clear();
+//                ((MainActivity)getActivity()).barcode ="";
+
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                AllFragment scanFragment = new AllFragment();
+                fragmentTransaction.replace(R.id.frameLayout, scanFragment);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+
             }
         });
         imgScanAll.setOnClickListener(new View.OnClickListener() {
@@ -136,10 +146,13 @@ public class AllFragment extends Fragment implements RecyclerView.OnScrollChange
 
         if(((MainActivity)getActivity()).barcode.equals("")||((MainActivity)getActivity()).barcode.isEmpty()){
             call = api.hitAllApi(Url.key, String.valueOf(currentPage), "3", "all");
+
+            scanValue=1;
         }else
         {
             scanAdapterFragment =false;
             currentPage =1;
+            scanValue=0;
             call = api.hitAllApiSearch(Url.key, String.valueOf(currentPage), "3", "all",((MainActivity) getActivity()).barcode);
         }
 
@@ -190,7 +203,7 @@ public class AllFragment extends Fragment implements RecyclerView.OnScrollChange
     @Override
     public void onScrollChange(View view, int i, int i1, int i2, int i3) {
         if (isLastItemDisplaying(rvAll)) {
-            if (currentPage <= totalPage && listData2.size()>1) {
+            if (currentPage < totalPage && listData2.size()>1) {
                 hitApi();
             }
 
@@ -204,7 +217,7 @@ public class AllFragment extends Fragment implements RecyclerView.OnScrollChange
       //  sessonManager.setBarcode();
         edtsearchAll.setText(((MainActivity) getActivity()).barcode);
 
-        if(((MainActivity) getActivity()).barcode.equals("")||((MainActivity) getActivity()).barcode.isEmpty()||((MainActivity) getActivity()).barcode==null){
+        if(edtsearchAll.getText().toString().equals("")){
         }else {
             listData2.clear();
 
@@ -217,7 +230,7 @@ public class AllFragment extends Fragment implements RecyclerView.OnScrollChange
     @Override
     public void onPause() {
         super.onPause();
-//        Toast.makeText(getActivity(), "pause", Toast.LENGTH_SHORT).show();
+
         ((MainActivity) getActivity()).barcode="";
     }
 
@@ -279,7 +292,6 @@ public class AllFragment extends Fragment implements RecyclerView.OnScrollChange
         ArrayList<AllListDatum> list;
         Views views = new Views();
 
-
         public AllAdapter(Context context, ArrayList<AllListDatum> list) {
             this.context = context;
             this.list = list;
@@ -312,8 +324,11 @@ public class AllFragment extends Fragment implements RecyclerView.OnScrollChange
                     final int position = holder.getAdapterPosition();
                     final String barcode = totalModel.getBarcodeScan();
 
-                    MyThread1 t1=new MyThread1();
-                    t1.start();
+                    if(scanValue==1){
+                        MyThread1 t1=new MyThread1();
+                        t1.start();
+                    }
+
 
                     final Dialog dialog = new Dialog(context);
                     dialog.setContentView(R.layout.warehouse_dialog);
@@ -321,7 +336,7 @@ public class AllFragment extends Fragment implements RecyclerView.OnScrollChange
                     dialog.setCancelable(false);
                     Button codeSubmitButton = dialog.findViewById(R.id.codeSubmitButton);
                     Button cancelButton = dialog.findViewById(R.id.codecancelButton);
-                    final TextView txtBarcodeSubmit = dialog.findViewById(R.id.txtBarcodeSubmit);
+//                    final TextView txtBarcodeSubmit = dialog.findViewById(R.id.txtBarcodeSubmit);
 
                     dialog.show();
                     codeSubmitButton.setOnClickListener(new View.OnClickListener() {
@@ -344,6 +359,14 @@ public class AllFragment extends Fragment implements RecyclerView.OnScrollChange
                     cancelButton.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
+
+                            FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                            HomeFragment scanFragment = new HomeFragment();
+                            fragmentTransaction.replace(R.id.frame, scanFragment);
+                            fragmentTransaction.addToBackStack(null);
+                            fragmentTransaction.commit();
+
                             dialog.dismiss();
                         }
                     });
