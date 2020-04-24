@@ -126,7 +126,7 @@
                     android:textAllCaps="false"
                     android:textColor="@android:color/white"
                     android:background="@drawable/loginbuttonshape"
-                    android:text="Ok"
+                    android:text="Scan"
 
                     />
             </LinearLayout>

@@ -15,7 +15,16 @@
         android:textColor="@android:color/black"
         android:textSize="18dp"
         android:textStyle="italic"
-        android:text="Do You want to submit Your Phone ?"></TextView>
+        android:text="Do You want to submit Your Phone with this barcode?"></TextView>
+
+    <TextView
+        android:id="@+id/txtBarcodeSubmit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/black"
+        android:textSize="18dp"
+        android:textStyle="bold"
+        android:text=""></TextView>
 
     <LinearLayout
         android:layout_width="match_parent"
