@@ -1,6 +1,8 @@
 package com.saifi.warehouse.constant;
 
 import com.saifi.warehouse.retrofitmodel.AllStatusModel;
+import com.saifi.warehouse.retrofitmodel.LoginModel;
+import com.saifi.warehouse.retrofitmodel.StatusModel;
 import com.saifi.warehouse.retrofitmodel.SubmitToWareHouseModel;
 
 import retrofit2.Call;
@@ -21,4 +23,13 @@ public interface ApiInterface {
     @FormUrlEncoded
     @POST("manager_subto_warehouse")
     Call<SubmitToWareHouseModel> hitSubmitWarehoueApi(@Field("key")String key,@Field("phone_id")String phoneId,@Field("code")String barcode);
+
+    @FormUrlEncoded
+    @POST("purchase_login_new")
+    Call<LoginModel> hitLoginApi(@Field("key")String key, @Field("mobile")String mobile, @Field("password")String password,
+                                 @Field("role")String role,@Field("user_role")String user_role);
+
+    @FormUrlEncoded
+    @POST("check_active_user")
+    Call<StatusModel> hitStatusApi(@Field("key") String key, @Field("user_id") String id);
 }

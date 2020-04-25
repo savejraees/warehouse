@@ -4,17 +4,22 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.MultiplePermissionsReport;
 import com.karumi.dexter.PermissionToken;
@@ -25,6 +30,7 @@ import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 import com.saifi.warehouse.adapter.MainAdapter;
 import com.saifi.warehouse.constant.NoScanResultException;
 import com.saifi.warehouse.constant.ScanResultReceiver;
+import com.saifi.warehouse.constant.SessonManager;
 import com.saifi.warehouse.model.MainCatogryModel;
 
 import java.util.ArrayList;
@@ -46,6 +52,9 @@ public class MainActivity extends AppCompatActivity implements ScanResultReceive
     Boolean mainCategory = true;
     private static final int STORAGE_PERMISSION_CODE = 123;
     public String barcode = "";
+    ImageView imgLogout;
+    long back_pressed = 0;
+    RelativeLayout mainLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +68,21 @@ public class MainActivity extends AppCompatActivity implements ScanResultReceive
 
         rv_main = findViewById(R.id.rv_main);
         linearCateogry = findViewById(R.id.linearCateogry);
+        imgLogout = findViewById(R.id.imgLogout);
+        mainLayout = findViewById(R.id.mainLayout);
         rvSet();
+
+        imgLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(MainActivity.this, "Logout Successfully", Toast.LENGTH_SHORT).show();
+                new SessonManager(MainActivity.this).setToken("");
+                startActivity(new Intent(MainActivity.this, LoginAcivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                        .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+            }
+        });
+
+
     }
 
     private void rvSet() {
@@ -175,5 +198,26 @@ public class MainActivity extends AppCompatActivity implements ScanResultReceive
                 .check();
     }
 
+
+    @Override
+    public void onBackPressed() {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        if(fragmentManager.getBackStackEntryCount()>1){
+            for (int i = 0; i < fragmentManager.getBackStackEntryCount(); ++i) {
+                fragmentManager.popBackStack();
+            }
+        }else {
+            if (back_pressed + 2000 > System.currentTimeMillis())
+                super.onBackPressed();
+            else {
+                Snackbar snackbar = Snackbar.make(mainLayout, "Double Tap to Exit!", Snackbar.LENGTH_SHORT);
+                View view = snackbar.getView();
+                view.setBackgroundColor(getResources().getColor(R.color.colorAccent));
+                snackbar.show();
+                back_pressed = System.currentTimeMillis();
+            }
+        }
+
+    }
 
 }

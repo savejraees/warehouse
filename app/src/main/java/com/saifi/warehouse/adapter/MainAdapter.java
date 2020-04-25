@@ -1,6 +1,7 @@
 package com.saifi.warehouse.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,8 +18,10 @@ import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.saifi.warehouse.LoginAcivity;
 import com.saifi.warehouse.MainActivity;
 import com.saifi.warehouse.R;
+import com.saifi.warehouse.constant.SessonManager;
 import com.saifi.warehouse.fragment.CustomerUsedFragment;
 import com.saifi.warehouse.fragment.HomeFragment;
 import com.saifi.warehouse.fragment.OpenBoxFragment;
@@ -96,10 +99,12 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.TotalHolder> {
                 } else if (index == 7) {
                     WarehouseFragment frag = new WarehouseFragment();
                     replaceFragment(frag);
-                } else if (index == 8) {
+                }
+                else if (index == 8) {
                     ReturnFragment frag = new ReturnFragment();
                     replaceFragment(frag);
                 }
+
             }
         });
         if (index == position) {
