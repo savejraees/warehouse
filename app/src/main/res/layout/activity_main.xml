@@ -37,22 +37,22 @@
            android:layout_marginLeft="2dp"/>
        </RelativeLayout>
 
-       <ImageView
-           android:id="@+id/imgLogout"
-           android:layout_width="40dp"
-           android:layout_height="40dp"
-           android:layout_gravity="center_horizontal"
-           android:src="@drawable/logout">
+<!--       <ImageView-->
+<!--           android:id="@+id/imgLogout"-->
+<!--           android:layout_width="40dp"-->
+<!--           android:layout_height="40dp"-->
+<!--           android:layout_gravity="center_horizontal"-->
+<!--           android:src="@drawable/logout">-->
 
-       </ImageView>
+<!--       </ImageView>-->
 
-       <TextView
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:textColor="@android:color/white"
-           android:layout_gravity="center_horizontal"
-           android:textSize="15dp"
-           android:text="Logout"></TextView>
+<!--       <TextView-->
+<!--           android:layout_width="wrap_content"-->
+<!--           android:layout_height="wrap_content"-->
+<!--           android:textColor="@android:color/white"-->
+<!--           android:layout_gravity="center_horizontal"-->
+<!--           android:textSize="15dp"-->
+<!--           android:text="Logout"></TextView>-->
    </LinearLayout>
 
     <LinearLayout

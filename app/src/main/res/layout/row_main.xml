@@ -8,8 +8,8 @@
 
     <ImageView
         android:id="@+id/imgMAin"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:layout_gravity="center_horizontal"
         android:src="@drawable/open_box">
     </ImageView>
@@ -20,7 +20,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:text="abcd"
-        android:textSize="15dp"
+        android:textSize="13dp"
         android:textColor="@android:color/white">
 
     </TextView>

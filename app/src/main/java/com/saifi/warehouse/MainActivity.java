@@ -42,9 +42,9 @@ public class MainActivity extends AppCompatActivity implements ScanResultReceive
 
     RecyclerView rv_main;
 
-    String[] textMain = {"Total Purchase", "Request", "QC", "OpenBox", "Customer Used", "Refurbised", "Stores", "warehouse", "Return"};
+    String[] textMain = {"Total Purchase", "Request", "QC", "OpenBox", "Customer Used", "Refurbised", "Stores", "warehouse", "Return","Logout"};
     int[] imgMain = {R.drawable.request_icon, R.drawable.request_icon, R.drawable.request_icon, R.drawable.request_icon,
-            R.drawable.request_icon, R.drawable.request_icon, R.drawable.request_icon, R.drawable.request_icon, R.drawable.request_icon};
+            R.drawable.request_icon, R.drawable.request_icon, R.drawable.request_icon, R.drawable.request_icon, R.drawable.request_icon,R.drawable.request_icon};
 
     ArrayList<MainCatogryModel> list = new ArrayList<>();
     MainAdapter mainAdapter;
@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity implements ScanResultReceive
     Boolean mainCategory = true;
     private static final int STORAGE_PERMISSION_CODE = 123;
     public String barcode = "";
-    ImageView imgLogout;
+   // ImageView imgLogout;
     long back_pressed = 0;
     RelativeLayout mainLayout;
 
@@ -68,19 +68,19 @@ public class MainActivity extends AppCompatActivity implements ScanResultReceive
 
         rv_main = findViewById(R.id.rv_main);
         linearCateogry = findViewById(R.id.linearCateogry);
-        imgLogout = findViewById(R.id.imgLogout);
+       // imgLogout = findViewById(R.id.imgLogout);
         mainLayout = findViewById(R.id.mainLayout);
         rvSet();
 
-        imgLogout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(MainActivity.this, "Logout Successfully", Toast.LENGTH_SHORT).show();
-                new SessonManager(MainActivity.this).setToken("");
-                startActivity(new Intent(MainActivity.this, LoginAcivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
-                        .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
-            }
-        });
+//        imgLogout.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Toast.makeText(MainActivity.this, "Logout Successfully", Toast.LENGTH_SHORT).show();
+//                new SessonManager(MainActivity.this).setToken("");
+//                startActivity(new Intent(MainActivity.this, LoginAcivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+//                        .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+//            }
+//        });
 
 
     }

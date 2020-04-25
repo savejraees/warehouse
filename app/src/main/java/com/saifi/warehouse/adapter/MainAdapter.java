@@ -104,6 +104,14 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.TotalHolder> {
                     ReturnFragment frag = new ReturnFragment();
                     replaceFragment(frag);
                 }
+                else if (index == 9) {
+                    Toast.makeText(context, "Logout Successfully", Toast.LENGTH_SHORT).show();
+                new SessonManager(context).setToken("");
+                    context.startActivity(new Intent(context, LoginAcivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                        .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+                }
+
+
 
             }
         });
