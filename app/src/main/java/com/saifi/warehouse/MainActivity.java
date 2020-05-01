@@ -201,12 +201,13 @@ public class MainActivity extends AppCompatActivity implements ScanResultReceive
 
     @Override
     public void onBackPressed() {
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        if(fragmentManager.getBackStackEntryCount()>1){
-            for (int i = 0; i < fragmentManager.getBackStackEntryCount(); ++i) {
-                fragmentManager.popBackStack();
-            }
-        }else {
+//        FragmentManager fragmentManager = getSupportFragmentManager();
+//        if(fragmentManager.getBackStackEntryCount()>1){
+//            for (int i = 0; i < fragmentManager.getBackStackEntryCount(); ++i) {
+//                fragmentManager.popBackStack();
+//            }
+//        }else {
+
             if (back_pressed + 2000 > System.currentTimeMillis())
                 super.onBackPressed();
             else {
@@ -216,7 +217,7 @@ public class MainActivity extends AppCompatActivity implements ScanResultReceive
                 snackbar.show();
                 back_pressed = System.currentTimeMillis();
             }
-        }
+//        }
 
     }
 
