@@ -1,19 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="#F6F4F4"
+    android:paddingTop="10dp"
     android:paddingLeft="10dp"
     android:paddingRight="10dp"
-    android:paddingBottom="50dp"
-    android:background="#F6F4F4"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:paddingBottom="50dp">
 
-<androidx.recyclerview.widget.RecyclerView
-    android:id="@+id/rvAllQC"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    tools:ignore="MissingConstraints" />
+    <LinearLayout
+        android:id="@+id/linearAllQc"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:orientation="horizontal"
+        tools:ignore="MissingConstraints">
+
+        <EditText
+            android:id="@+id/edtsearchAllQC"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_alignParentTop="true"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="5sp"
+            android:layout_marginRight="5dp"
+            android:layout_weight="8"
+            android:focusable="false"
+            android:background="@drawable/search_round"
+            android:clickable="false"
+            android:hint="Search Here"
+            android:inputType="text"
+            android:paddingLeft="5dp"
+            android:searchHintIcon="@android:color/white"
+            android:textColor="@android:color/white"
+            android:textColorHint="@android:color/white" />
+
+
+        <ImageView
+            android:id="@+id/imgScanAllQC"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/ic_scan"></ImageView>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/txtClearQC"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginBottom="2dp"
+        android:text="Clear"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="17dp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@id/linearAllQc"
+        tools:ignore="MissingConstraints">
+
+    </TextView>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvAllQC"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        app:layout_constraintTop_toBottomOf="@id/txtClearQC"
+        tools:ignore="MissingConstraints" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

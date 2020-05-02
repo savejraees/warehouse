@@ -234,57 +234,6 @@ public class AllFragment extends Fragment implements RecyclerView.OnScrollChange
         ((MainActivity) getActivity()).barcode="";
     }
 
-//    private void hitApiSearch() {
-//        views.showProgress(getActivity());
-//      //  listDataSearch.clear();
-//        currentPage =1;
-//
-//        Retrofit retrofit = new Retrofit.Builder()
-//                .addConverterFactory(GsonConverterFactory.create())
-//                .baseUrl(Url.BASE_URL)
-//                .build();
-//
-//        ApiInterface api = retrofit.create(ApiInterface.class);
-//
-//        call = api.hitAllApiSearch(Url.key, String.valueOf(currentPage), "3", "all",((MainActivity) getActivity()).barcode);
-//
-//
-//        call.enqueue(new Callback<AllStatusModel>() {
-//            @Override
-//            public void onResponse(Call<AllStatusModel> call, Response<AllStatusModel> response) {
-//                views.hideProgress();
-//
-//                if (response.isSuccessful()) {
-//
-//                    AllStatusModel model = response.body();
-////                    totalPage = model.getTotalPages();
-//
-//                    Toast.makeText(getActivity(), ""+model.getMsg(), Toast.LENGTH_SHORT).show();
-//
-//                 //   listDataSearch = model.getData();
-//
-//                    layoutManager = new GridLayoutManager(getContext(), 1);
-//                    rvAll.setLayoutManager(layoutManager);
-//                 //   searchAdapeter = new AllAdapter(getActivity(), listDataSearch);
-//                    rvAll.setAdapter(searchAdapeter);
-//
-//
-//                } else {
-//                    views.showToast(getActivity(), String.valueOf(response));
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<AllStatusModel> call, Throwable t) {
-//                views.hideProgress();
-//                views.showToast(getActivity(), t.getMessage());
-//            }
-//        });
-//    }
-
-
-
-
 
     public class AllAdapter extends RecyclerView.Adapter<AllAdapter.TotalHolder> {
 

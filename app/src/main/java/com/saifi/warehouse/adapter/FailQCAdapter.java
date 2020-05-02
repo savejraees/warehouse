@@ -6,9 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.RadioGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -18,7 +16,6 @@ import com.saifi.warehouse.R;
 import com.saifi.warehouse.constant.ApiInterface;
 import com.saifi.warehouse.constant.Url;
 import com.saifi.warehouse.constant.Views;
-import com.saifi.warehouse.fragmentQC.PassFragmentQC;
 import com.saifi.warehouse.retrofitmodel.qcModel.AllQCDatum;
 import com.saifi.warehouse.retrofitmodel.qcModel.SubmitQCModel;
 
@@ -30,63 +27,54 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class PassQcAdapter extends RecyclerView.Adapter<PassQcAdapter.TotalHolder> {
+public class FailQCAdapter extends RecyclerView.Adapter<FailQCAdapter.TotalHolder> {
 
     Context context;
     ArrayList<AllQCDatum> list;
     Views views = new Views();
 
 
-    public PassQcAdapter(Context context, ArrayList<AllQCDatum> list) {
+    public FailQCAdapter(Context context, ArrayList<AllQCDatum> list) {
         this.context = context;
         this.list = list;
     }
 
     @NonNull
     @Override
-    public PassQcAdapter.TotalHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.row_qc_all, parent, false);
-        return new PassQcAdapter.TotalHolder(view);
+    public FailQCAdapter.TotalHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(context).inflate(R.layout.row_qc_fail, parent, false);
+        return new FailQCAdapter.TotalHolder(view);
 
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final PassQcAdapter.TotalHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final FailQCAdapter.TotalHolder holder, int position) {
         final AllQCDatum totalModel = list.get(position);
-        holder.txtBrandAllQC.setText(totalModel.getBrandName());
-        holder.txtModelAll.setText(totalModel.getModelName());
-        holder.txtGBAll.setText(totalModel.getGb());
-//        holder.txtPriceAll.setText("₹"+(totalModel.getPurchaseAmount())+"/-");
-        holder.txtNameAll.setText("Purchased By(" + totalModel.getName() + ")");
-        holder.txtBarcodeAll.setText("Barcode no : " + totalModel.getBarcodeScan() );
-        holder.txtCategoryAll.setText("Purchase Category : " + totalModel.getPurchaseCatName() );
-
+        holder.txtBrandFailQC.setText(totalModel.getBrandName());
+        holder.txtModelFailQC.setText(totalModel.getModelName());
+        holder.txtGBFailQC.setText(totalModel.getGb());
+        holder.txtNameFailQC.setText("Purchased By(" + totalModel.getName() + ")");
+        holder.txtBarcodeFailQC.setText("Barcode no : " + totalModel.getBarcodeScan() );
+        holder.txtCategoryFailQC.setText("Purchase Category : " + totalModel.getPurchaseCatName() );
         holder.submit.setOnClickListener(new View.OnClickListener() {
-            @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
             public void onClick(View view) {
+                int phoneId = totalModel.getId();
+                int pos = holder.getAdapterPosition();
 
-                if(new PassFragmentQC().spinnerValue.equalsIgnoreCase("Select Category")){
-                    Toast.makeText(context, "Please Select Category", Toast.LENGTH_SHORT).show();
-                }else {
-                    int phoneId = totalModel.getId();
-                    int pos = holder.getAdapterPosition();
-//                    Toast.makeText(context, ""+new PassFragmentQC().spinnerValue, Toast.LENGTH_SHORT).show();
+                hitApiCheck(phoneId,pos);
 
-                    hitApiPass(phoneId,pos);
-                }
             }
         });
 
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
-    private void hitApiPass(int phoneId, final int pos) {
+    private void hitApiCheck(int phoneId,  final int pos) {
         views.showProgress(context);
         Retrofit retrofit = new Retrofit.Builder().baseUrl(Url.BASE_URL).addConverterFactory(GsonConverterFactory.create()).build();
 
         ApiInterface api = retrofit.create(ApiInterface.class);
-        Call<SubmitQCModel> call = api.hitQCPassCategory(Url.key, String.valueOf(phoneId), new PassFragmentQC().spinnerValue);
+        Call<SubmitQCModel> call = api.hitCheckQC(Url.key, String.valueOf(phoneId), "5");
         call.enqueue(new Callback<SubmitQCModel>() {
             @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
@@ -128,21 +116,20 @@ public class PassQcAdapter extends RecyclerView.Adapter<PassQcAdapter.TotalHolde
     public class TotalHolder extends RecyclerView.ViewHolder {
 
         Button submit;
-        TextView txtBrandAllQC, txtModelAll, txtGBAll, txtNameAll,txtBarcodeAll,txtCategoryAll;
-        RadioGroup radioShop;
+        TextView txtBrandFailQC, txtModelFailQC, txtGBFailQC, txtNameFailQC,txtBarcodeFailQC,txtCategoryFailQC;
+
 
         public TotalHolder(@NonNull View itemView) {
             super(itemView);
-            submit = itemView.findViewById(R.id.submitButtonAllQC);
-            txtBrandAllQC = itemView.findViewById(R.id.txtBrandAllQC);
-            txtModelAll = itemView.findViewById(R.id.txtModelAllQC);
-            txtGBAll = itemView.findViewById(R.id.txtGBAllQC);
+            submit = itemView.findViewById(R.id.submitButtonFailQC);
+            txtBrandFailQC = itemView.findViewById(R.id.txtBrandFailQC);
+            txtModelFailQC = itemView.findViewById(R.id.txtModelFailQC);
+            txtGBFailQC = itemView.findViewById(R.id.txtGBFailQC);
 //            txtPriceAll = itemView.findViewById(R.id.txtPriceAll);
-            txtNameAll = itemView.findViewById(R.id.txtNameAllQC);
-            txtBarcodeAll = itemView.findViewById(R.id.txtBarcodeAllQC);
-            txtCategoryAll = itemView.findViewById(R.id.txtCategoryAllQC);
-            radioShop = itemView.findViewById(R.id.radioShop);
-            radioShop.setVisibility(View.GONE);
+            txtNameFailQC = itemView.findViewById(R.id.txtNameFailQC);
+            txtBarcodeFailQC = itemView.findViewById(R.id.txtBarcodeFailQC);
+            txtCategoryFailQC = itemView.findViewById(R.id.txtCategoryFailQC);
+
 
         }
     }

@@ -12,6 +12,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.saifi.warehouse.R;
 import com.saifi.warehouse.adapter.AllAdapterQC;
@@ -35,7 +39,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * A simple {@link Fragment} subclass.
  */
 @RequiresApi(api = Build.VERSION_CODES.M)
-public class PassFragmentQC extends Fragment implements RecyclerView.OnScrollChangeListener {
+public class PassFragmentQC extends Fragment implements RecyclerView.OnScrollChangeListener, AdapterView.OnItemSelectedListener {
 
     public PassFragmentQC() {
         // Required empty public constructor
@@ -52,6 +56,9 @@ public class PassFragmentQC extends Fragment implements RecyclerView.OnScrollCha
     int totalPage;
     SessonManager sessonManager;
     Call<StatusAllQC> call;
+    Spinner qcPassSpinner;
+    String[] spinnerData = {"Select Category","Open Box", "Refurbisd", "QC Fail", "Customer Used"};
+    public static String spinnerValue;
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
@@ -61,9 +68,18 @@ public class PassFragmentQC extends Fragment implements RecyclerView.OnScrollCha
         view = inflater.inflate(R.layout.fragment_qc_pass, container, false);
         views = new Views();
         rvAll = view.findViewById(R.id.rvAllPass);
+        qcPassSpinner = view.findViewById(R.id.qcPassSpinner);
         layoutManager = new GridLayoutManager(getContext(), 1);
         rvAll.setLayoutManager(layoutManager);
         sessonManager = new SessonManager(getActivity());
+
+        qcPassSpinner.setOnItemSelectedListener(this);
+
+        //Creating the ArrayAdapter instance having the country list
+        ArrayAdapter aa = new ArrayAdapter(getActivity(), android.R.layout.simple_spinner_item, spinnerData);
+        aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        //Setting the ArrayAdapter data on the Spinner
+        qcPassSpinner.setAdapter(aa);
 
         hitApi();
 
@@ -135,4 +151,29 @@ public class PassFragmentQC extends Fragment implements RecyclerView.OnScrollCha
         });
     }
 
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+      //  spinnerValue = spinnerData[i];
+        if(i==0){
+            spinnerValue = "Select Category";
+        }
+        else if(i==1){
+            spinnerValue = "OpenBox";
+        }
+        else if(i==2){
+            spinnerValue = "Refurbised";
+        }
+        else if(i==3){
+            spinnerValue = "qcfail";
+        }
+        else if(i==4){
+            spinnerValue = "CustomerUsed";
+        }
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+
+    }
 }

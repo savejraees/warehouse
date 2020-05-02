@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.saifi.warehouse.R;
+import com.saifi.warehouse.adapter.FailQCAdapter;
 import com.saifi.warehouse.adapter.PassQcAdapter;
 import com.saifi.warehouse.constant.ApiInterface;
 import com.saifi.warehouse.constant.SessonManager;
@@ -42,7 +43,7 @@ public class FailFragmentQC extends Fragment implements RecyclerView.OnScrollCha
 
     Views views;
     View view;
-    PassQcAdapter adapter;
+    FailQCAdapter adapter;
     RecyclerView rvAll;
     LinearLayoutManager layoutManager;
     ArrayList<AllQCDatum> listData = new ArrayList<>();
@@ -67,7 +68,7 @@ public class FailFragmentQC extends Fragment implements RecyclerView.OnScrollCha
 
         rvAll.setOnScrollChangeListener(this);
         //initializing our adapter
-        adapter = new PassQcAdapter(getActivity(), listData2);
+        adapter = new FailQCAdapter(getActivity(), listData2);
         //Adding adapter to recyclerview
         rvAll.setAdapter(adapter);
         return view;

@@ -21,9 +21,17 @@ public interface ApiInterface {
     @POST("qc_purchase_history")
     Call<StatusAllQC> hitAllQCApi(@Field("key") String key, @Field("page") String page, @Field("status") String status);
 
- @FormUrlEncoded
+    @FormUrlEncoded
+    @POST("qc_purchase_history")
+    Call<StatusAllQC> hitAllQCApiSearch(@Field("key") String key, @Field("page") String page, @Field("status") String status, @Field("search") String search);
+
+    @FormUrlEncoded
     @POST("qc_check")
     Call<SubmitQCModel> hitCheckQC(@Field("key") String key, @Field("phone_id") String phoneId, @Field("status_code") String status_code);
+
+    @FormUrlEncoded
+    @POST("qc_pass_category")
+    Call<SubmitQCModel> hitQCPassCategory(@Field("key") String key, @Field("phone_id") String phoneId, @Field("category") String category);
 
     @FormUrlEncoded
     @POST("warehouse_allshop_purchase_list")
