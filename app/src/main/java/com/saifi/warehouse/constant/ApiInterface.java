@@ -18,6 +18,15 @@ public interface ApiInterface {
     Call<AllStatusModel> hitAllApi(@Field("key") String key, @Field("page") String page, @Field("status") String status, @Field("category") String category);
 
     @FormUrlEncoded
+    @POST("rco_history")
+    Call<StatusAllQC> hitOpenBoxApi(@Field("key") String key, @Field("page") String page, @Field("category") String category);
+
+    @FormUrlEncoded
+    @POST("rco_history")
+    Call<StatusAllQC> hitOpenBoxApiSearch(@Field("key") String key, @Field("page") String page, @Field("category") String category,
+                                          @Field("search") String search );
+
+    @FormUrlEncoded
     @POST("qc_purchase_history")
     Call<StatusAllQC> hitAllQCApi(@Field("key") String key, @Field("page") String page, @Field("status") String status);
 

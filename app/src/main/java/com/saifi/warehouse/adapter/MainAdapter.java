@@ -3,6 +3,7 @@ package com.saifi.warehouse.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -61,6 +63,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.TotalHolder> {
         Glide.with(context).load(totalModel.getImg()).into(holder.imgMAin);
 
         holder.linearLaoutMain.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
             public void onClick(View view) {
                 index = position;

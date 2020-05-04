@@ -1,14 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#F6F4F4"
+    android:paddingTop="10dp"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:paddingBottom="10dp"
+    android:orientation="vertical"
     tools:context=".fragment.CustomerUsedFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <Spinner
+        android:id="@+id/customerSpinner"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="40dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/outline_shape"
+        tools:ignore="MissingConstraints">
 
-</FrameLayout>
+    </Spinner>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp"
+        tools:ignore="MissingConstraints">
+
+        <EditText
+            android:id="@+id/edtsearchCustomerUsed"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_alignParentTop="true"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="5sp"
+            android:layout_marginRight="5dp"
+            android:layout_weight="8"
+            android:focusable="false"
+            android:background="@drawable/search_round"
+            android:clickable="false"
+            android:hint="Search Here"
+            android:inputType="text"
+            android:paddingLeft="5dp"
+            android:searchHintIcon="@android:color/white"
+            android:textColor="@android:color/white"
+            android:textColorHint="@android:color/white" />
+
+
+        <ImageView
+            android:id="@+id/imgScanCustomerUsed"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/ic_scan"></ImageView>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/txtClearCustomerUsed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginBottom="2dp"
+        android:text="Clear"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="17dp"
+        android:textStyle="bold"
+
+        tools:ignore="MissingConstraints">
+
+    </TextView>
+
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvCustomerUsed"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        tools:ignore="MissingConstraints" />
+
+</LinearLayout>

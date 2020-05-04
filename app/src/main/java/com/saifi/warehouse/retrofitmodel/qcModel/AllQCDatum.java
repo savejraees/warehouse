@@ -489,4 +489,15 @@ public class AllQCDatum {
     public void setViewstatus(String viewstatus) {
         this.viewstatus = viewstatus;
     }
+
+
+    private boolean imgEnable;
+
+    public boolean  getImgEnable() {
+        return imgEnable;
+    }
+
+    public void setImgEnable(boolean imgEnable) {
+        this.imgEnable = imgEnable;
+    }
 }
