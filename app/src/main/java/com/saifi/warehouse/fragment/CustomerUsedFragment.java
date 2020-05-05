@@ -66,7 +66,7 @@ public class CustomerUsedFragment extends Fragment implements RecyclerView.OnScr
     TextView txtClear;
 
     Spinner customerSpinner;
-    String[] spinnerData = {"Select Category","Open Box", "Refurbisd", "QC Fail", "Customer Used"};
+    String[] spinnerData = {"Select Category","store", "warehouse"};
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -229,17 +229,12 @@ public class CustomerUsedFragment extends Fragment implements RecyclerView.OnScr
             new OpenBoxFragment().spinnerValueOpenBox = "Select Category";
         }
         else if(i==1){
-            new OpenBoxFragment().spinnerValueOpenBox = "OpenBox";
+            new OpenBoxFragment().spinnerValueOpenBox = "store";
         }
         else if(i==2){
-            new OpenBoxFragment().spinnerValueOpenBox = "Refurbised";
+            new OpenBoxFragment().spinnerValueOpenBox = "warehouse";
         }
-        else if(i==3){
-            new OpenBoxFragment().spinnerValueOpenBox = "qcfail";
-        }
-        else if(i==4){
-            new OpenBoxFragment().spinnerValueOpenBox = "CustomerUsed";
-        }
+
     }
 
     @Override

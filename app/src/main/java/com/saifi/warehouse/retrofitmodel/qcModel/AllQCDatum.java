@@ -2,6 +2,10 @@ package com.saifi.warehouse.retrofitmodel.qcModel;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.saifi.warehouse.model.ImageModel;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class AllQCDatum {
 
@@ -492,6 +496,16 @@ public class AllQCDatum {
 
 
     private boolean imgEnable;
+
+    private ArrayList<ImageModel> subItemList;
+
+    public ArrayList<ImageModel> getSubItemList() {
+        return subItemList;
+    }
+
+    public void setSubItemList(ArrayList<ImageModel> subItemList) {
+        this.subItemList = subItemList;
+    }
 
     public boolean  getImgEnable() {
         return imgEnable;

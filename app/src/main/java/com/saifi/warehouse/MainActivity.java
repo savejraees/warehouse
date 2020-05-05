@@ -72,17 +72,6 @@ public class MainActivity extends AppCompatActivity implements ScanResultReceive
         mainLayout = findViewById(R.id.mainLayout);
         rvSet();
 
-//        imgLogout.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Toast.makeText(MainActivity.this, "Logout Successfully", Toast.LENGTH_SHORT).show();
-//                new SessonManager(MainActivity.this).setToken("");
-//                startActivity(new Intent(MainActivity.this, LoginAcivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
-//                        .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
-//            }
-//        });
-
-
     }
 
     private void rvSet() {
@@ -197,7 +186,6 @@ public class MainActivity extends AppCompatActivity implements ScanResultReceive
                 .onSameThread()
                 .check();
     }
-
 
     @Override
     public void onBackPressed() {

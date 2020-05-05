@@ -1,6 +1,7 @@
 package com.saifi.warehouse.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +16,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.saifi.warehouse.ImageActivity;
 import com.saifi.warehouse.R;
 import com.saifi.warehouse.constant.ApiInterface;
 import com.saifi.warehouse.constant.Url;
@@ -81,15 +83,11 @@ public class OpenBoxAdapter extends RecyclerView.Adapter<OpenBoxAdapter.TotalHol
             }
         });
 
-        holder.uploadOpenBox.setOnClickListener(new View.OnClickListener() {
+        holder.selectOpenBox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-              //  Toast.makeText(context, ""+totalModel.getImgEnable(), Toast.LENGTH_SHORT).show();
-                       if(totalModel.getImgEnable()==false){
-                           totalModel.setImgEnable(true);
-                           holder.submit.setVisibility(View.VISIBLE);
-                           holder.uploadOpenBox.setVisibility(View.GONE);
-                       }
+            context.startActivity(new Intent(context, ImageActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+
             }
         });
 
@@ -144,7 +142,7 @@ public class OpenBoxAdapter extends RecyclerView.Adapter<OpenBoxAdapter.TotalHol
 
     public class TotalHolder extends RecyclerView.ViewHolder {
 
-        Button submit, uploadOpenBox;
+        Button submit, selectOpenBox;
         TextView txtBrandAllQC, txtModelAll, txtGBAll, txtNameAll, txtBarcodeAll, txtCategoryAll;
 
 
@@ -152,7 +150,7 @@ public class OpenBoxAdapter extends RecyclerView.Adapter<OpenBoxAdapter.TotalHol
             super(itemView);
             submit = itemView.findViewById(R.id.submitOpenBox);
             submit.setVisibility(View.GONE);
-            uploadOpenBox = itemView.findViewById(R.id.uploadOpenBox);
+            selectOpenBox = itemView.findViewById(R.id.selectOpenBox);
             txtBrandAllQC = itemView.findViewById(R.id.txtBrandOpenBox);
             txtModelAll = itemView.findViewById(R.id.txtModelOpenBox);
             txtGBAll = itemView.findViewById(R.id.txtGBOpenBox);

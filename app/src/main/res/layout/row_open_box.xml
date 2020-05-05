@@ -116,11 +116,11 @@
                     android:orientation="horizontal">
 
                     <Button
-                        android:id="@+id/uploadOpenBox"
+                        android:id="@+id/selectOpenBox"
                         android:layout_width="100dp"
                         android:layout_height="wrap_content"
                         android:background="@drawable/loginbuttonshape"
-                        android:text="Upload"
+                        android:text="Select"
                         android:textAllCaps="false"
                         android:textColor="@android:color/white"
 

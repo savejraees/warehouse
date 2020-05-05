@@ -66,7 +66,7 @@ public class OpenBoxFragment extends Fragment implements RecyclerView.OnScrollCh
     TextView txtClear;
     
     Spinner openBoxSpinner;
-    String[] spinnerData = {"Select Category","Open Box", "Refurbisd", "QC Fail", "Customer Used"};
+    String[] spinnerData = {"Select Category","Store", "Warehouse"};
     public static String spinnerValueOpenBox;
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -231,10 +231,10 @@ public class OpenBoxFragment extends Fragment implements RecyclerView.OnScrollCh
             spinnerValueOpenBox = "Select Category";
         }
         else if(i==1){
-            spinnerValueOpenBox = "OpenBox";
+            spinnerValueOpenBox = "store";
         }
         else if(i==2){
-            spinnerValueOpenBox = "Refurbised";
+            spinnerValueOpenBox = "warehouse";
         }
         else if(i==3){
             spinnerValueOpenBox = "qcfail";
