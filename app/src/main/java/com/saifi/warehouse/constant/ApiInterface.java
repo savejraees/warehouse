@@ -1,16 +1,25 @@
 package com.saifi.warehouse.constant;
 
+import com.google.gson.JsonObject;
 import com.saifi.warehouse.retrofitmodel.AllStatusModel;
 import com.saifi.warehouse.retrofitmodel.LoginModel;
 import com.saifi.warehouse.retrofitmodel.StatusModel;
 import com.saifi.warehouse.retrofitmodel.SubmitToWareHouseModel;
 import com.saifi.warehouse.retrofitmodel.qcModel.StatusAllQC;
 import com.saifi.warehouse.retrofitmodel.qcModel.SubmitQCModel;
+import com.saifi.warehouse.retrofitmodel.rcoModel.RCO_Status;
 
+import java.util.Map;
+
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
+import retrofit2.http.PartMap;
 
 public interface ApiInterface {
     @FormUrlEncoded
@@ -19,11 +28,11 @@ public interface ApiInterface {
 
     @FormUrlEncoded
     @POST("rco_history")
-    Call<StatusAllQC> hitOpenBoxApi(@Field("key") String key, @Field("page") String page, @Field("category") String category);
+    Call<RCO_Status> hitOpenBoxApi(@Field("key") String key, @Field("page") String page, @Field("category") String category);
 
     @FormUrlEncoded
     @POST("rco_history")
-    Call<StatusAllQC> hitOpenBoxApiSearch(@Field("key") String key, @Field("page") String page, @Field("category") String category,
+    Call<RCO_Status> hitOpenBoxApiSearch(@Field("key") String key, @Field("page") String page, @Field("category") String category,
                                           @Field("search") String search );
 
     @FormUrlEncoded
@@ -59,4 +68,8 @@ public interface ApiInterface {
     @FormUrlEncoded
     @POST("check_active_user")
     Call<StatusModel> hitStatusApi(@Field("key") String key, @Field("user_id") String id);
+
+    @Multipart
+    @POST("warehouse_upload_mobile_img")
+    Call<JsonObject> imageAPi(@Part MultipartBody.Part[] imageArray1, @PartMap() Map<String, RequestBody> partMap);
 }

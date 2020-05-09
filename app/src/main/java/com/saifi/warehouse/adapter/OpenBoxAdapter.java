@@ -3,6 +3,7 @@ package com.saifi.warehouse.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,17 +15,21 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.saifi.warehouse.ImageActivity;
+import com.saifi.warehouse.MainActivity;
 import com.saifi.warehouse.R;
 import com.saifi.warehouse.constant.ApiInterface;
 import com.saifi.warehouse.constant.Url;
 import com.saifi.warehouse.constant.Views;
 import com.saifi.warehouse.fragment.OpenBoxFragment;
+import com.saifi.warehouse.fragment.OpenBoxImageFragment;
 import com.saifi.warehouse.fragmentQC.PassFragmentQC;
-import com.saifi.warehouse.retrofitmodel.qcModel.AllQCDatum;
 import com.saifi.warehouse.retrofitmodel.qcModel.SubmitQCModel;
+import com.saifi.warehouse.retrofitmodel.rcoModel.RCO_Datum;
 
 import java.util.ArrayList;
 
@@ -37,12 +42,12 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class OpenBoxAdapter extends RecyclerView.Adapter<OpenBoxAdapter.TotalHolder> {
 
     Context context;
-    ArrayList<AllQCDatum> list;
+    ArrayList<RCO_Datum> list;
     Views views = new Views();
     String status_code = "";
 
 
-    public OpenBoxAdapter(Context context, ArrayList<AllQCDatum> list) {
+    public OpenBoxAdapter(Context context, ArrayList<RCO_Datum> list) {
         this.context = context;
         this.list = list;
     }
@@ -57,7 +62,7 @@ public class OpenBoxAdapter extends RecyclerView.Adapter<OpenBoxAdapter.TotalHol
 
     @Override
     public void onBindViewHolder(@NonNull final OpenBoxAdapter.TotalHolder holder, int position) {
-        final AllQCDatum totalModel = list.get(position);
+        final RCO_Datum totalModel = list.get(position);
         holder.txtBrandAllQC.setText(totalModel.getBrandName());
         holder.txtModelAll.setText(totalModel.getModelName());
         holder.txtGBAll.setText(totalModel.getGb());
@@ -70,15 +75,16 @@ public class OpenBoxAdapter extends RecyclerView.Adapter<OpenBoxAdapter.TotalHol
             @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
             public void onClick(View view) {
-                if (new OpenBoxFragment().spinnerValueOpenBox.equalsIgnoreCase("Select Category")) {
-                    Toast.makeText(context, "Please Select Category", Toast.LENGTH_SHORT).show();
-                } else {
+//                if (new OpenBoxFragment().spinnerValueOpenBox.equalsIgnoreCase("Select Category")) {
+//                    Toast.makeText(context, "Please Select Category", Toast.LENGTH_SHORT).show();
+//                } else {
+
                     int phoneId = totalModel.getId();
                     int pos = holder.getAdapterPosition();
                     Toast.makeText(context, "" + new OpenBoxFragment().spinnerValueOpenBox, Toast.LENGTH_SHORT).show();
 
                     //  hitApiCheck(phoneId,pos);
-                }
+//                }
 
             }
         });
@@ -86,8 +92,15 @@ public class OpenBoxAdapter extends RecyclerView.Adapter<OpenBoxAdapter.TotalHol
         holder.selectOpenBox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-            context.startActivity(new Intent(context, ImageActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
-
+//            context.startActivity(new Intent(context, ImageActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+                int phoneId = totalModel.getId();
+                Fragment fragment = new OpenBoxImageFragment();
+                FragmentManager fragmentManager = ((MainActivity) context).getSupportFragmentManager();
+                Bundle bundle = new Bundle();
+                bundle.putInt("phoneId", phoneId);
+                fragment.setArguments(bundle);
+                fragmentManager.beginTransaction().replace(R.id.frame, fragment, fragment.getTag())
+                        .addToBackStack(null).commit();
             }
         });
 
@@ -149,7 +162,7 @@ public class OpenBoxAdapter extends RecyclerView.Adapter<OpenBoxAdapter.TotalHol
         public TotalHolder(@NonNull View itemView) {
             super(itemView);
             submit = itemView.findViewById(R.id.submitOpenBox);
-            submit.setVisibility(View.GONE);
+//            submit.setVisibility(View.GONE);
             selectOpenBox = itemView.findViewById(R.id.selectOpenBox);
             txtBrandAllQC = itemView.findViewById(R.id.txtBrandOpenBox);
             txtModelAll = itemView.findViewById(R.id.txtModelOpenBox);

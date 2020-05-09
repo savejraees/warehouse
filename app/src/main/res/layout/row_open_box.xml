@@ -120,7 +120,7 @@
                         android:layout_width="100dp"
                         android:layout_height="wrap_content"
                         android:background="@drawable/loginbuttonshape"
-                        android:text="Select"
+                        android:text="Upload"
                         android:textAllCaps="false"
                         android:textColor="@android:color/white"
 

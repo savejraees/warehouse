@@ -1,14 +1,9 @@
-package com.saifi.warehouse.retrofitmodel.qcModel;
+package com.saifi.warehouse.retrofitmodel.rcoModel;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import com.saifi.warehouse.model.ImageModel;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class AllQCDatum {
-
+public class RCO_Datum {
     @SerializedName("id")
     @Expose
     private Integer id;
@@ -104,13 +99,13 @@ public class AllQCDatum {
     private String barcodeScan;
     @SerializedName("category_type")
     @Expose
-    private Object categoryType;
+    private String categoryType;
     @SerializedName("business_location_id")
     @Expose
     private Integer businessLocationId;
     @SerializedName("device_shop_address_id")
     @Expose
-    private Object deviceShopAddressId;
+    private Integer deviceShopAddressId;
     @SerializedName("stock_check_status")
     @Expose
     private String stockCheckStatus;
@@ -125,10 +120,16 @@ public class AllQCDatum {
     private String managertowarehouseDate;
     @SerializedName("manager_recive_status")
     @Expose
-    private Object managerReciveStatus;
+    private String managerReciveStatus;
     @SerializedName("manager_recive_date")
     @Expose
-    private Object managerReciveDate;
+    private String managerReciveDate;
+    @SerializedName("dealer_id")
+    @Expose
+    private Integer dealerId;
+    @SerializedName("image_status")
+    @Expose
+    private Integer imageStatus;
     @SerializedName("name")
     @Expose
     private String name;
@@ -137,7 +138,7 @@ public class AllQCDatum {
     private String puchaseShopaddress;
     @SerializedName("stock_shopaddress")
     @Expose
-    private Object stockShopaddress;
+    private String stockShopaddress;
     @SerializedName("viewstatus")
     @Expose
     private String viewstatus;
@@ -390,11 +391,11 @@ public class AllQCDatum {
         this.barcodeScan = barcodeScan;
     }
 
-    public Object getCategoryType() {
+    public String getCategoryType() {
         return categoryType;
     }
 
-    public void setCategoryType(Object categoryType) {
+    public void setCategoryType(String categoryType) {
         this.categoryType = categoryType;
     }
 
@@ -406,11 +407,11 @@ public class AllQCDatum {
         this.businessLocationId = businessLocationId;
     }
 
-    public Object getDeviceShopAddressId() {
+    public Integer getDeviceShopAddressId() {
         return deviceShopAddressId;
     }
 
-    public void setDeviceShopAddressId(Object deviceShopAddressId) {
+    public void setDeviceShopAddressId(Integer deviceShopAddressId) {
         this.deviceShopAddressId = deviceShopAddressId;
     }
 
@@ -446,20 +447,36 @@ public class AllQCDatum {
         this.managertowarehouseDate = managertowarehouseDate;
     }
 
-    public Object getManagerReciveStatus() {
+    public String getManagerReciveStatus() {
         return managerReciveStatus;
     }
 
-    public void setManagerReciveStatus(Object managerReciveStatus) {
+    public void setManagerReciveStatus(String managerReciveStatus) {
         this.managerReciveStatus = managerReciveStatus;
     }
 
-    public Object getManagerReciveDate() {
+    public String getManagerReciveDate() {
         return managerReciveDate;
     }
 
-    public void setManagerReciveDate(Object managerReciveDate) {
+    public void setManagerReciveDate(String managerReciveDate) {
         this.managerReciveDate = managerReciveDate;
+    }
+
+    public Integer getDealerId() {
+        return dealerId;
+    }
+
+    public void setDealerId(Integer dealerId) {
+        this.dealerId = dealerId;
+    }
+
+    public Integer getImageStatus() {
+        return imageStatus;
+    }
+
+    public void setImageStatus(Integer imageStatus) {
+        this.imageStatus = imageStatus;
     }
 
     public String getName() {
@@ -478,11 +495,11 @@ public class AllQCDatum {
         this.puchaseShopaddress = puchaseShopaddress;
     }
 
-    public Object getStockShopaddress() {
+    public String getStockShopaddress() {
         return stockShopaddress;
     }
 
-    public void setStockShopaddress(Object stockShopaddress) {
+    public void setStockShopaddress(String stockShopaddress) {
         this.stockShopaddress = stockShopaddress;
     }
 
@@ -494,15 +511,12 @@ public class AllQCDatum {
         this.viewstatus = viewstatus;
     }
 
-    private ArrayList<ImageModel> subItemList;
-
-    public ArrayList<ImageModel> getSubItemList() {
-        return subItemList;
+    private boolean imgEnable;
+    public boolean  getImgEnable() {
+        return imgEnable;
     }
 
-    public void setSubItemList(ArrayList<ImageModel> subItemList) {
-        this.subItemList = subItemList;
+    public void setImgEnable(boolean imgEnable) {
+        this.imgEnable = imgEnable;
     }
-
-
 }

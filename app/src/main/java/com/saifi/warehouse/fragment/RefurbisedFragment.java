@@ -29,8 +29,8 @@ import com.saifi.warehouse.constant.ScanFragment;
 import com.saifi.warehouse.constant.SessonManager;
 import com.saifi.warehouse.constant.Url;
 import com.saifi.warehouse.constant.Views;
-import com.saifi.warehouse.retrofitmodel.qcModel.AllQCDatum;
-import com.saifi.warehouse.retrofitmodel.qcModel.StatusAllQC;
+import com.saifi.warehouse.retrofitmodel.rcoModel.RCO_Datum;
+import com.saifi.warehouse.retrofitmodel.rcoModel.RCO_Status;
 
 import java.util.ArrayList;
 
@@ -55,12 +55,12 @@ public class RefurbisedFragment extends Fragment implements RecyclerView.OnScrol
     OpenBoxAdapter adapter;
     RecyclerView rvRefurbish;
     LinearLayoutManager layoutManager;
-    ArrayList<AllQCDatum> listData = new ArrayList<>();
-    ArrayList<AllQCDatum> listData2 = new ArrayList<>();
+    ArrayList<RCO_Datum> listData = new ArrayList<>();
+    ArrayList<RCO_Datum> listData2 = new ArrayList<>();
     int currentPage = 1;
     int totalPage;
     SessonManager sessonManager;
-    Call<StatusAllQC> call;
+    Call<RCO_Status> call;
     EditText edtsearchRefurbish;
     ImageView imgScanRefurbish;
     TextView txtClear;
@@ -175,10 +175,6 @@ public class RefurbisedFragment extends Fragment implements RecyclerView.OnScrol
         views.showProgress(getActivity());
         listData.clear();
         
-        //////////// for Enable the button of submit after upload image
-        new AllQCDatum().setImgEnable(false);
-        ////////////////////////////////////////////////////////////
-        
         Retrofit retrofit = new Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create())
                 .baseUrl(Url.BASE_URL)
@@ -191,18 +187,17 @@ public class RefurbisedFragment extends Fragment implements RecyclerView.OnScrol
             call = api.hitOpenBoxApi(Url.key, String.valueOf(currentPage), "refurbish");
         }else
         {
-
             currentPage =1;
             call = api.hitOpenBoxApiSearch(Url.key, String.valueOf(currentPage), "refurbish",((MainActivity) getActivity()).barcode);
         }
 
-        call.enqueue(new Callback<StatusAllQC>() {
+        call.enqueue(new Callback<RCO_Status>() {
             @Override
-            public void onResponse(Call<StatusAllQC> call, Response<StatusAllQC> response) {
+            public void onResponse(Call<RCO_Status> call, Response<RCO_Status> response) {
                 views.hideProgress();
 
                 if (response.isSuccessful()) {
-                    StatusAllQC model = response.body();
+                    RCO_Status model = response.body();
                     totalPage = model.getTotalPages();
 
                     listData = model.getData();
@@ -218,7 +213,7 @@ public class RefurbisedFragment extends Fragment implements RecyclerView.OnScrol
             }
 
             @Override
-            public void onFailure(Call<StatusAllQC> call, Throwable t) {
+            public void onFailure(Call<RCO_Status> call, Throwable t) {
                 views.hideProgress();
                 views.showToast(getActivity(), t.getMessage());
             }

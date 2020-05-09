@@ -31,8 +31,8 @@ import com.saifi.warehouse.constant.SessonManager;
 import com.saifi.warehouse.constant.Url;
 import com.saifi.warehouse.constant.Views;
 import com.saifi.warehouse.fragmentQC.AllFragmentQC;
-import com.saifi.warehouse.retrofitmodel.qcModel.AllQCDatum;
-import com.saifi.warehouse.retrofitmodel.qcModel.StatusAllQC;
+import com.saifi.warehouse.retrofitmodel.rcoModel.RCO_Datum;
+import com.saifi.warehouse.retrofitmodel.rcoModel.RCO_Status;
 
 import java.util.ArrayList;
 
@@ -55,12 +55,12 @@ public class OpenBoxFragment extends Fragment implements RecyclerView.OnScrollCh
     OpenBoxAdapter adapter;
     RecyclerView rvAll;
     LinearLayoutManager layoutManager;
-    ArrayList<AllQCDatum> listData = new ArrayList<>();
-    ArrayList<AllQCDatum> listData2 = new ArrayList<>();
+    ArrayList<RCO_Datum> listData = new ArrayList<>();
+    ArrayList<RCO_Datum> listData2 = new ArrayList<>();
     int currentPage = 1;
     int totalPage;
     SessonManager sessonManager;
-    Call<StatusAllQC> call;
+    Call<RCO_Status> call;
     EditText edtsearchAll;
     ImageView imgScanAll;
     TextView txtClear;
@@ -134,7 +134,7 @@ public class OpenBoxFragment extends Fragment implements RecyclerView.OnScrollCh
         views.showProgress(getActivity());
         listData.clear();
 
-        new AllQCDatum().setImgEnable(false);
+//        new RCO_Datum().setImgEnable(false);
         //   listDataSearch.clear();
 
         Retrofit retrofit = new Retrofit.Builder()
@@ -145,22 +145,21 @@ public class OpenBoxFragment extends Fragment implements RecyclerView.OnScrollCh
         ApiInterface api = retrofit.create(ApiInterface.class);
 
         if(((MainActivity)getActivity()).barcode.equals("")||((MainActivity)getActivity()).barcode.isEmpty()){
-
             call = api.hitOpenBoxApi(Url.key, String.valueOf(currentPage), "openbox");
-        }else
+        }
+        else
         {
-
             currentPage =1;
             call = api.hitOpenBoxApiSearch(Url.key, String.valueOf(currentPage), "openbox",((MainActivity) getActivity()).barcode);
         }
 
-        call.enqueue(new Callback<StatusAllQC>() {
+        call.enqueue(new Callback<RCO_Status>() {
             @Override
-            public void onResponse(Call<StatusAllQC> call, Response<StatusAllQC> response) {
+            public void onResponse(Call<RCO_Status> call, Response<RCO_Status> response) {
                 views.hideProgress();
 
                 if (response.isSuccessful()) {
-                    StatusAllQC model = response.body();
+                    RCO_Status model = response.body();
                     totalPage = model.getTotalPages();
 
                     listData = model.getData();
@@ -176,7 +175,7 @@ public class OpenBoxFragment extends Fragment implements RecyclerView.OnScrollCh
             }
 
             @Override
-            public void onFailure(Call<StatusAllQC> call, Throwable t) {
+            public void onFailure(Call<RCO_Status> call, Throwable t) {
                 views.hideProgress();
                 views.showToast(getActivity(), t.getMessage());
             }
@@ -236,12 +235,7 @@ public class OpenBoxFragment extends Fragment implements RecyclerView.OnScrollCh
         else if(i==2){
             spinnerValueOpenBox = "warehouse";
         }
-        else if(i==3){
-            spinnerValueOpenBox = "qcfail";
-        }
-        else if(i==4){
-            spinnerValueOpenBox = "CustomerUsed";
-        }
+
     }
 
     @Override
