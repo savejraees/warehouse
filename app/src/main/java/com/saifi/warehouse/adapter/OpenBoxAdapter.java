@@ -2,6 +2,7 @@ package com.saifi.warehouse.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -45,11 +46,12 @@ public class OpenBoxAdapter extends RecyclerView.Adapter<OpenBoxAdapter.TotalHol
     ArrayList<RCO_Datum> list;
     Views views = new Views();
     String status_code = "";
+    String fragmentType;
 
-
-    public OpenBoxAdapter(Context context, ArrayList<RCO_Datum> list) {
+    public OpenBoxAdapter(Context context, ArrayList<RCO_Datum> list,String fragmentType) {
         this.context = context;
         this.list = list;
+        this.fragmentType = fragmentType;
     }
 
     @NonNull
@@ -57,7 +59,6 @@ public class OpenBoxAdapter extends RecyclerView.Adapter<OpenBoxAdapter.TotalHol
     public OpenBoxAdapter.TotalHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.row_open_box, parent, false);
         return new OpenBoxAdapter.TotalHolder(view);
-
     }
 
     @Override
@@ -70,21 +71,34 @@ public class OpenBoxAdapter extends RecyclerView.Adapter<OpenBoxAdapter.TotalHol
         holder.txtBarcodeAll.setText("Barcode no : " + totalModel.getBarcodeScan());
         holder.txtCategoryAll.setText("Purchase Category : " + totalModel.getPurchaseCatName());
 
+        if(fragmentType.equals("Refubised")){
+            holder.selectOpenBox.setVisibility(View.GONE);
+        }
+        final int imageStatus = totalModel.getImageStatus();
+        if(imageStatus!=0){
+            holder.selectOpenBox.setBackgroundColor(Color.parseColor("#D00872"));
+        }
 
         holder.submit.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
             public void onClick(View view) {
-//                if (new OpenBoxFragment().spinnerValueOpenBox.equalsIgnoreCase("Select Category")) {
-//                    Toast.makeText(context, "Please Select Category", Toast.LENGTH_SHORT).show();
-//                } else {
+                if(imageStatus!=0){
+                    if (new OpenBoxFragment().spinnerValueOpenBox.equalsIgnoreCase("Select Category")) {
+                        Toast.makeText(context, "Please Select Category", Toast.LENGTH_SHORT).show();
+                    } else {
 
-                    int phoneId = totalModel.getId();
-                    int pos = holder.getAdapterPosition();
-                    Toast.makeText(context, "" + new OpenBoxFragment().spinnerValueOpenBox, Toast.LENGTH_SHORT).show();
+                        int phoneId = totalModel.getId();
+                        int pos = holder.getAdapterPosition();
+                        Toast.makeText(context, "" + new OpenBoxFragment().spinnerValueOpenBox, Toast.LENGTH_SHORT).show();
 
-                    //  hitApiCheck(phoneId,pos);
-//                }
+                        //  hitApiCheck(phoneId,pos);
+                    }
+                }
+                else {
+                    Toast.makeText(context, "Please Upload the Image", Toast.LENGTH_SHORT).show();
+                }
+
 
             }
         });
@@ -92,20 +106,21 @@ public class OpenBoxAdapter extends RecyclerView.Adapter<OpenBoxAdapter.TotalHol
         holder.selectOpenBox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//            context.startActivity(new Intent(context, ImageActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+
+                notifyDataSetChanged();
+ //            context.startActivity(new Intent(context, ImageActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
                 int phoneId = totalModel.getId();
                 Fragment fragment = new OpenBoxImageFragment();
                 FragmentManager fragmentManager = ((MainActivity) context).getSupportFragmentManager();
                 Bundle bundle = new Bundle();
                 bundle.putInt("phoneId", phoneId);
+                bundle.putString("type", fragmentType);
                 fragment.setArguments(bundle);
                 fragmentManager.beginTransaction().replace(R.id.frame, fragment, fragment.getTag())
                         .addToBackStack(null).commit();
+
             }
         });
-
-
-
     }
 
     private void hitApiCheck(int phoneId, final int pos) {
@@ -140,7 +155,6 @@ public class OpenBoxAdapter extends RecyclerView.Adapter<OpenBoxAdapter.TotalHol
             }
         });
     }
-
 
     public void removeItem(int position) {
         list.remove(position);

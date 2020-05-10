@@ -15,6 +15,7 @@ import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -79,6 +80,7 @@ public class OpenBoxImageFragment extends Fragment {
     String mCurrentPhotoPathInvoice;
     OpenBoxSubAdapter mIMGAdapter;
     int bookingId;
+    String fragmentType;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -96,7 +98,8 @@ public class OpenBoxImageFragment extends Fragment {
         Bundle bundle = this.getArguments();
         if (bundle != null) {
             bookingId = bundle.getInt("phoneId", 0);
-            Log.d("sapol", String.valueOf(bookingId));
+            fragmentType = bundle.getString("type", "");
+            Log.d("sapol", String.valueOf(bookingId)+" "+fragmentType);
         }
 
         selectInVoiceButton.setOnClickListener(new View.OnClickListener() {
@@ -119,8 +122,7 @@ public class OpenBoxImageFragment extends Fragment {
             @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
             public void onClick(View view) {
-//                startActivity(new Intent(getActivity(), MainActivity.class));
-//                finishAffinity();
+
                 hitApiUploadInvoice();
             }
         });
@@ -292,21 +294,36 @@ public class OpenBoxImageFragment extends Fragment {
         ApiInterface iApiServices = ApiFactory.createRetrofitInstance(Url.BASE_URL).create(ApiInterface.class);
         iApiServices.imageAPi(imageArrayInvoice, partMap)
                 .enqueue(new Callback<JsonObject>() {
+                    @RequiresApi(api = Build.VERSION_CODES.M)
                     @Override
                     public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
                         //Toast.makeText(ClaimAssistanceActivity_form.this, "" + response, Toast.LENGTH_SHORT).show();
                         views.hideProgress();
 
                         JsonObject jsonObject = null;
-
-                        Log.d("resposed_data", response.toString());
                         try {
                             jsonObject = response.body();
 
                             if (jsonObject.get("code").getAsString().equals("200")) {
                                 views.showToast(getActivity(), jsonObject.get("msg").getAsString());
-                                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                                fragmentManager.popBackStack();
+                                if(fragmentType.equalsIgnoreCase("OpenBox")){
+                                    Fragment fragment = new OpenBoxFragment();
+                                    FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                                    fragmentManager.popBackStack();
+                                    FragmentTransaction  fragmentTransaction = fragmentManager.beginTransaction();
+                                    fragmentTransaction.replace(R.id.frame,fragment);
+                                    fragmentTransaction.addToBackStack(null);
+                                    fragmentTransaction.commit();
+                                }else {
+                                    Fragment fragment = new CustomerUsedFragment();
+                                    FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                                    fragmentManager.popBackStack();
+                                    FragmentTransaction  fragmentTransaction = fragmentManager.beginTransaction();
+                                    fragmentTransaction.replace(R.id.frame,fragment);
+                                    fragmentTransaction.addToBackStack(null);
+                                    fragmentTransaction.commit();
+                                }
+
 
 
                             } else {

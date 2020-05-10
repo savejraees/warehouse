@@ -67,7 +67,7 @@ public class RefurbisedFragment extends Fragment implements RecyclerView.OnScrol
 
     Spinner refurbishSpinner;
     String[] spinnerData = {"Select Category", "Open Box", "Refurbisd", "QC Fail", "Customer Used"};
-
+    public String fragmentType = "Refubised";
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
@@ -96,7 +96,7 @@ public class RefurbisedFragment extends Fragment implements RecyclerView.OnScrol
         hitApi();
 
         rvRefurbish.setOnScrollChangeListener(this);
-        adapter = new OpenBoxAdapter(getActivity(), listData2);
+        adapter = new OpenBoxAdapter(getActivity(), listData2,fragmentType);
         rvRefurbish.setAdapter(adapter);
 
         txtClear.setOnClickListener(new View.OnClickListener() {

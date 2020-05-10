@@ -68,6 +68,7 @@ public class CustomerUsedFragment extends Fragment implements RecyclerView.OnScr
     Spinner customerSpinner;
     String[] spinnerData = {"Select Category","store", "warehouse"};
 
+    public String fragmentType = "customer";
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -95,7 +96,7 @@ public class CustomerUsedFragment extends Fragment implements RecyclerView.OnScr
         hitApi();
 
         rvCustomerUsed.setOnScrollChangeListener(this);
-        adapter = new OpenBoxAdapter(getActivity(), listData2);
+        adapter = new OpenBoxAdapter(getActivity(), listData2,fragmentType);
         rvCustomerUsed.setAdapter(adapter);
 
         txtClear.setOnClickListener(new View.OnClickListener() {

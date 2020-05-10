@@ -68,6 +68,7 @@ public class OpenBoxFragment extends Fragment implements RecyclerView.OnScrollCh
     Spinner openBoxSpinner;
     String[] spinnerData = {"Select Category","Store", "Warehouse"};
     public static String spinnerValueOpenBox;
+    public String fragmentType = "OpenBox";
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
@@ -97,7 +98,7 @@ public class OpenBoxFragment extends Fragment implements RecyclerView.OnScrollCh
         hitApi();
 
         rvAll.setOnScrollChangeListener(this);
-        adapter = new OpenBoxAdapter(getActivity(), listData2);
+        adapter = new OpenBoxAdapter(getActivity(), listData2,fragmentType);
         rvAll.setAdapter(adapter);
 
         txtClear.setOnClickListener(new View.OnClickListener() {
@@ -134,9 +135,6 @@ public class OpenBoxFragment extends Fragment implements RecyclerView.OnScrollCh
         views.showProgress(getActivity());
         listData.clear();
 
-//        new RCO_Datum().setImgEnable(false);
-        //   listDataSearch.clear();
-
         Retrofit retrofit = new Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create())
                 .baseUrl(Url.BASE_URL)
@@ -168,7 +166,6 @@ public class OpenBoxFragment extends Fragment implements RecyclerView.OnScrollCh
 
                     currentPage = currentPage + 1;
 
-
                 } else {
                     views.showToast(getActivity(), String.valueOf(response));
                 }
@@ -197,7 +194,6 @@ public class OpenBoxFragment extends Fragment implements RecyclerView.OnScrollCh
             if (currentPage <= totalPage && listData2.size() > 1) {
                 hitApi();
             }
-
         }
     }
 
