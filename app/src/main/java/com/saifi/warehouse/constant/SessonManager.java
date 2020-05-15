@@ -13,6 +13,8 @@ public class SessonManager {
     public static  final String location = "Location";
     public static  final String BuisnessLocationId = "BLocation";
     public static  final String barcode = "barcode";
+    public static  final String tabId = "tabId";
+
 
     public SessonManager(Context context){
      sharedPreferences = context.getSharedPreferences("sharedPrefrence",Context.MODE_PRIVATE);
@@ -78,5 +80,14 @@ public void setBarcode(String barcode1){
         editor.putString(barcode,barcode1);
         editor.commit();
 }
+
+public void setTabId(String id){
+        editor.putString(tabId,id);
+        editor.commit();
+}
+public String getTabId(){
+    return sharedPreferences.getString(tabId,"");
+}
+
 
 }

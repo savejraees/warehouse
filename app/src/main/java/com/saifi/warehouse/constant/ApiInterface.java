@@ -8,6 +8,7 @@ import com.saifi.warehouse.retrofitmodel.SubmitToWareHouseModel;
 import com.saifi.warehouse.retrofitmodel.qcModel.StatusAllQC;
 import com.saifi.warehouse.retrofitmodel.qcModel.SubmitQCModel;
 import com.saifi.warehouse.retrofitmodel.rcoModel.RCO_Status;
+import com.saifi.warehouse.retrofitmodel.storeModel.StatusTabModel;
 
 import java.util.Map;
 
@@ -36,6 +37,11 @@ public interface ApiInterface {
                                           @Field("search") String search );
 
     @FormUrlEncoded
+    @POST("getstore_history")
+    Call<RCO_Status> hitStoreHistoryApi(@Field("key") String key, @Field("page") String page, @Field("business_location_id") String id);
+
+
+    @FormUrlEncoded
     @POST("qc_purchase_history")
     Call<StatusAllQC> hitAllQCApi(@Field("key") String key, @Field("page") String page, @Field("status") String status);
 
@@ -46,6 +52,10 @@ public interface ApiInterface {
     @FormUrlEncoded
     @POST("qc_check")
     Call<SubmitQCModel> hitCheckQC(@Field("key") String key, @Field("phone_id") String phoneId, @Field("status_code") String status_code);
+
+   @FormUrlEncoded
+    @POST("update_business_address")
+    Call<SubmitQCModel> hitSubmitStore(@Field("key") String key, @Field("phone_id") String phoneId, @Field("business_address_id") String status_code);
 
     @FormUrlEncoded
     @POST("qc_pass_category")
@@ -68,6 +78,10 @@ public interface ApiInterface {
     @FormUrlEncoded
     @POST("check_active_user")
     Call<StatusModel> hitStatusApi(@Field("key") String key, @Field("user_id") String id);
+
+    @FormUrlEncoded
+    @POST("getbusiness")
+    Call<StatusTabModel> hitStatusTabApi(@Field("key") String key);
 
     @Multipart
     @POST("warehouse_upload_mobile_img")
