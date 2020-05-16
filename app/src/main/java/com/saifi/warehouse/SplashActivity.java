@@ -85,6 +85,7 @@ public class SplashActivity extends Activity {
 
             @Override
             public void onFailure(Call<StatusModel> call, Throwable t) {
+                views.showToast(getBaseContext(),t.getMessage());
                 views.hideProgress();
             }
         });

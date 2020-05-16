@@ -16,6 +16,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.saifi.warehouse.MainActivity;
@@ -59,12 +62,16 @@ public class StoresFragment extends Fragment implements RecyclerView.OnScrollCha
 
     ArrayList<RCO_Datum> listData = new ArrayList<>();
     ArrayList<RCO_Datum> listData2 = new ArrayList<>();
+    ArrayList<String> listSpinner = new ArrayList<>();
     int currentPage = 1;
     int totalPage;
     SessonManager sessonManager;
     Call<RCO_Status> call;
 
     int ID_TabData;
+    Spinner storeSpinner;
+   static public int ID_storeSpinner;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -73,6 +80,7 @@ public class StoresFragment extends Fragment implements RecyclerView.OnScrollCha
         views = new Views();
         rvTab = view.findViewById(R.id.rvTab);
         rvTabData = view.findViewById(R.id.rvTabData);
+        storeSpinner = view.findViewById(R.id.storeSpinner);
 
         layoutManager = new GridLayoutManager(getContext(), 1);
         rvTabData.setLayoutManager(layoutManager);
@@ -85,6 +93,23 @@ public class StoresFragment extends Fragment implements RecyclerView.OnScrollCha
 
         storeTabDataAdapter = new StoreTabDataAdapter(getActivity(), listData2);
         rvTabData.setAdapter(storeTabDataAdapter);
+
+
+        storeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+                ID_storeSpinner = (listDatum.get(i).getId());
+                Log.d("statesda", String.valueOf(ID_storeSpinner));
+
+                ((TextView) adapterView.getChildAt(0)).setTextColor(Color.parseColor("#000000"));
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
 
         return view;
     }
@@ -105,6 +130,13 @@ public class StoresFragment extends Fragment implements RecyclerView.OnScrollCha
                     listDatum = model.getData();
 
                     if (model.getCode().equals("200")) {
+//                        listSpinner.add("Select Category");
+                        for(int i=0;i<listDatum.size();i++){
+                            listSpinner.add(listDatum.get(i).getBusinessLocation());
+                        }
+                        ArrayAdapter aa = new ArrayAdapter(getActivity(), android.R.layout.simple_spinner_dropdown_item, listSpinner);
+                        storeSpinner.setAdapter(aa);
+
                         views.showToast(getActivity(), model.getMsg());
                         rvTab.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
                         adapter = new StoreTabAdapter(getActivity(), listDatum);
@@ -152,14 +184,13 @@ public class StoresFragment extends Fragment implements RecyclerView.OnScrollCha
             holder.txtTab.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    index = position;
-                    notifyDataSetChanged();
-
                     listData2.clear();
                     currentPage =1;
 
+                    index = position;
+                    notifyDataSetChanged();
+
                     ID_TabData = totalModel.getId();
-                    Log.d("fsakjlzx", String.valueOf(ID_TabData));
                     hitTabDataApi();
 
                 }

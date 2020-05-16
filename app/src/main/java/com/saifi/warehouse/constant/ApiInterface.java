@@ -55,7 +55,7 @@ public interface ApiInterface {
 
    @FormUrlEncoded
     @POST("update_business_address")
-    Call<SubmitQCModel> hitSubmitStore(@Field("key") String key, @Field("phone_id") String phoneId, @Field("business_address_id") String status_code);
+    Call<SubmitQCModel> hitSubmitStore(@Field("key") String key, @Field("phone_id") String phoneId, @Field("business_address_id") String buisnessId);
 
     @FormUrlEncoded
     @POST("qc_pass_category")
