@@ -33,6 +33,7 @@ import com.saifi.warehouse.fragment.RequestFragment;
 import com.saifi.warehouse.fragment.ReturnFragment;
 import com.saifi.warehouse.fragment.StoresFragment;
 import com.saifi.warehouse.fragment.WarehouseFragment;
+import com.saifi.warehouse.fragment.WarehouseTestFragment;
 import com.saifi.warehouse.model.MainCatogryModel;
 
 import java.util.ArrayList;
@@ -71,14 +72,14 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.TotalHolder> {
                 if (index == 0) {
 
                     FragmentManager fragmentManager = ((MainActivity) context).getSupportFragmentManager();
-                    if(fragmentManager.getBackStackEntryCount()>0){
+                    if (fragmentManager.getBackStackEntryCount() > 0) {
                         for (int i = 0; i < fragmentManager.getBackStackEntryCount(); ++i) {
                             fragmentManager.popBackStack();
                         }
                     }
 
-                        HomeFragment frag = new HomeFragment();
-                        fragmentManager.beginTransaction().add(R.id.frame, frag, frag.getTag()).commit();
+                    HomeFragment frag = new HomeFragment();
+                    fragmentManager.beginTransaction().add(R.id.frame, frag, frag.getTag()).commit();
 
 
                 } else if (index == 1) {
@@ -103,17 +104,19 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.TotalHolder> {
                     WarehouseFragment frag = new WarehouseFragment();
                     replaceFragment(frag);
                 }
+//                else if (index == 8) {
+//                    WarehouseTestFragment frag = new WarehouseTestFragment();
+//                    replaceFragment(frag);
+//                }
                 else if (index == 8) {
                     ReturnFragment frag = new ReturnFragment();
                     replaceFragment(frag);
-                }
-                else if (index == 9) {
+                } else if (index == 9) {
                     Toast.makeText(context, "Logout Successfully", Toast.LENGTH_SHORT).show();
-                new SessonManager(context).setToken("");
+                    new SessonManager(context).setToken("");
                     context.startActivity(new Intent(context, LoginAcivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
-                        .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+                            .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
                 }
-
 
 
             }

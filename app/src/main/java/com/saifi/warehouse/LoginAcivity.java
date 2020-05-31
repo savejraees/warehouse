@@ -23,6 +23,8 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+import static com.saifi.warehouse.constant.SSlHandshake.getUnsafeOkHttpClient;
+
 public class LoginAcivity extends AppCompatActivity {
 
   EditText edtUserName,edtPassword;
@@ -67,7 +69,7 @@ public class LoginAcivity extends AppCompatActivity {
         views.showProgress(LoginAcivity.this);
         Retrofit retrofit = new Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create())
-                .baseUrl(Url.BASE_URL)
+                 .baseUrl(Url.BASE_URL).client(getUnsafeOkHttpClient().build())
                 .build();
 
         ApiInterface api = retrofit.create(ApiInterface.class);

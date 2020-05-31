@@ -30,6 +30,8 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+import static com.saifi.warehouse.constant.SSlHandshake.getUnsafeOkHttpClient;
+
 public class PassQcAdapter extends RecyclerView.Adapter<PassQcAdapter.TotalHolder> {
 
     Context context;
@@ -83,7 +85,7 @@ public class PassQcAdapter extends RecyclerView.Adapter<PassQcAdapter.TotalHolde
     @RequiresApi(api = Build.VERSION_CODES.M)
     private void hitApiPass(int phoneId, final int pos) {
         views.showProgress(context);
-        Retrofit retrofit = new Retrofit.Builder().baseUrl(Url.BASE_URL).addConverterFactory(GsonConverterFactory.create()).build();
+        Retrofit retrofit = new Retrofit.Builder() .baseUrl(Url.BASE_URL).client(getUnsafeOkHttpClient().build()).addConverterFactory(GsonConverterFactory.create()).build();
 
         ApiInterface api = retrofit.create(ApiInterface.class);
         Call<SubmitQCModel> call = api.hitQCPassCategory(Url.key, String.valueOf(phoneId), new PassFragmentQC().spinnerValue);

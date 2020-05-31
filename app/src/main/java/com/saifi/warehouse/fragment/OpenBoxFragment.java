@@ -42,6 +42,8 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+import static com.saifi.warehouse.constant.SSlHandshake.getUnsafeOkHttpClient;
+
 
 @RequiresApi(api = Build.VERSION_CODES.M)
 public class OpenBoxFragment extends Fragment implements RecyclerView.OnScrollChangeListener, AdapterView.OnItemSelectedListener {
@@ -137,7 +139,7 @@ public class OpenBoxFragment extends Fragment implements RecyclerView.OnScrollCh
 
         Retrofit retrofit = new Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create())
-                .baseUrl(Url.BASE_URL)
+                 .baseUrl(Url.BASE_URL).client(getUnsafeOkHttpClient().build())
                 .build();
 
         ApiInterface api = retrofit.create(ApiInterface.class);

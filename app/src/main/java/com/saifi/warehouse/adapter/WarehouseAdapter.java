@@ -33,6 +33,8 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+import static com.saifi.warehouse.constant.SSlHandshake.getUnsafeOkHttpClient;
+
 public class WarehouseAdapter extends RecyclerView.Adapter<WarehouseAdapter.TotalHolder> {
 
     Context context;
@@ -65,7 +67,9 @@ public class WarehouseAdapter extends RecyclerView.Adapter<WarehouseAdapter.Tota
         holder.txtBarcodeAll.setText("Barcode no : " + totalModel.getBarcodeScan() );
         holder.txtCategoryAll.setText("Purchase Category : " + totalModel.getPurchaseCatName() );
 
-
+        if(totalModel.getSaleAmount()==0){
+            holder.submit.setVisibility(View.GONE);
+        }
 
         holder.submit.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.M)
@@ -86,7 +90,7 @@ public class WarehouseAdapter extends RecyclerView.Adapter<WarehouseAdapter.Tota
     @RequiresApi(api = Build.VERSION_CODES.M)
     private void hitApiCheck(int phoneId, final int pos) {
         views.showProgress(context);
-        Retrofit retrofit = new Retrofit.Builder().baseUrl(Url.BASE_URL).addConverterFactory(GsonConverterFactory.create()).build();
+        Retrofit retrofit = new Retrofit.Builder() .baseUrl(Url.BASE_URL).client(getUnsafeOkHttpClient().build()).addConverterFactory(GsonConverterFactory.create()).build();
 
         ApiInterface api = retrofit.create(ApiInterface.class);
         Call<SubmitQCModel> call = api.hitSubmitStore(Url.key, String.valueOf(phoneId), String.valueOf(new WarehouseFragment().ID_warehouseSpinner));

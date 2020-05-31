@@ -40,6 +40,8 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+import static com.saifi.warehouse.constant.SSlHandshake.getUnsafeOkHttpClient;
+
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -144,7 +146,7 @@ public class AllFragmentQC extends Fragment implements RecyclerView.OnScrollChan
 
         Retrofit retrofit = new Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create())
-                .baseUrl(Url.BASE_URL)
+                 .baseUrl(Url.BASE_URL).client(getUnsafeOkHttpClient().build())
                 .build();
 
         ApiInterface api = retrofit.create(ApiInterface.class);

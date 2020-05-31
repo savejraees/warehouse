@@ -32,7 +32,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".LoginAcivity" />
-        <activity android:name=".MainActivity" />
+        <activity android:name=".MainActivity"
+            android:screenOrientation="portrait"/>
 
         <provider
             android:name="androidx.core.content.FileProvider"

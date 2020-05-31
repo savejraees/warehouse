@@ -127,7 +127,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 //
 //    private void hitApiWarehouse(int phoneId, String code, final int pos) {
 ////        views.showProgress(context);
-//        Retrofit retrofit = new Retrofit.Builder().baseUrl(Url.BASE_URL).addConverterFactory(GsonConverterFactory.create()).build();
+//        Retrofit retrofit = new Retrofit.Builder() .baseUrl(Url.BASE_URL).client(getUnsafeOkHttpClient().build()).addConverterFactory(GsonConverterFactory.create()).build();
 //
 //        ApiInterface api = retrofit.create(ApiInterface.class);
 //        Call<SubmitToWareHouseModel> call = api.hitSubmitWarehoueApi(Url.key, String.valueOf(phoneId), code);

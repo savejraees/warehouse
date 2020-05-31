@@ -16,6 +16,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.saifi.warehouse.MainActivity;
@@ -38,6 +39,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+
+import static com.saifi.warehouse.constant.SSlHandshake.getUnsafeOkHttpClient;
 
 public class StoreTabDataAdapter extends RecyclerView.Adapter<StoreTabDataAdapter.TotalHolder> {
 
@@ -68,6 +71,9 @@ public class StoreTabDataAdapter extends RecyclerView.Adapter<StoreTabDataAdapte
         holder.txtBarcodeAll.setText("Barcode no : " + totalModel.getBarcodeScan());
         holder.txtCategoryAll.setText("Purchase Category : " + totalModel.getPurchaseCatName());
 
+        if(totalModel.getSaleAmount()==0){
+            holder.submit.setVisibility(View.GONE);
+        }
         holder.submit.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
@@ -89,7 +95,7 @@ public class StoreTabDataAdapter extends RecyclerView.Adapter<StoreTabDataAdapte
     @RequiresApi(api = Build.VERSION_CODES.M)
     private void hitApiCheck(int phoneId, final int pos) {
         views.showProgress(context);
-        Retrofit retrofit = new Retrofit.Builder().baseUrl(Url.BASE_URL).addConverterFactory(GsonConverterFactory.create()).build();
+        Retrofit retrofit = new Retrofit.Builder() .baseUrl(Url.BASE_URL).client(getUnsafeOkHttpClient().build()).addConverterFactory(GsonConverterFactory.create()).build();
 
         ApiInterface api = retrofit.create(ApiInterface.class);
         Call<SubmitQCModel> call = api.hitSubmitStore(Url.key, String.valueOf(phoneId), String.valueOf(new StoresFragment().ID_storeSpinner));
@@ -104,7 +110,13 @@ public class StoreTabDataAdapter extends RecyclerView.Adapter<StoreTabDataAdapte
                     if (model.getCode().equals("200")) {
                         views.showToast(context, model.getMsg());
 
-                        removeItem(pos);
+                        FragmentManager fragmentManager = ((MainActivity)context).getSupportFragmentManager();
+                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                        StoresFragment scanFragment = new StoresFragment();
+                        fragmentTransaction.replace(R.id.frame, scanFragment);
+                        fragmentTransaction.addToBackStack(null);
+                        fragmentTransaction.commit();
+//                        removeItem(pos);
                     } else {
                         views.showToast(context, model.getMsg());
                     }
