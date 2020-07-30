@@ -88,12 +88,17 @@ public class WarehouseTestFragment extends Fragment {
         @Override
         public Fragment getItem(int position) {
             return DynamicTabFragment.newInstance(fragmentName,
-                    IdFrag);
+                    IdFrag,position);
         }
 
         @Override
         public int getCount() {
             return mNumOfTabs;
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return ""+(position+1);
         }
     }
 

@@ -117,6 +117,10 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.TotalHolder> {
                     context.startActivity(new Intent(context, LoginAcivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
                             .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
                 }
+                else if (index == 10) {
+                    WarehouseTestFragment frag = new WarehouseTestFragment();
+                    replaceFragment(frag);
+                }
 
 
             }
