@@ -193,6 +193,7 @@ public class StoresFragment extends Fragment implements RecyclerView.OnScrollCha
                     notifyDataSetChanged();
 
                     ID_TabData = totalModel.getId();
+                    Log.d("saklajsza",""+ID_TabData);
                     hitTabDataApi();
 
                 }
@@ -240,15 +241,8 @@ public class StoresFragment extends Fragment implements RecyclerView.OnScrollCha
 
         ApiInterface api = retrofit.create(ApiInterface.class);
 
-//        if(((MainActivity)getActivity()).barcode.equals("")||((MainActivity)getActivity()).barcode.isEmpty()){
-
             call = api.hitStoreHistoryApi(Url.key, String.valueOf(currentPage), String.valueOf(ID_TabData));
-//        }else
-//        {
-//
-//            currentPage =1;
-//            call = api.hitOpenBoxApiSearch(Url.key, String.valueOf(currentPage), "customerUsed",((MainActivity) getActivity()).barcode);
-//        }
+
 
         call.enqueue(new Callback<RCO_Status>() {
             @Override
@@ -261,7 +255,7 @@ public class StoresFragment extends Fragment implements RecyclerView.OnScrollCha
 
                     listData = model.getData();
                     listData2.addAll(listData);
-                    adapter.notifyDataSetChanged();
+                    storeTabDataAdapter.notifyDataSetChanged();
 
                     currentPage = currentPage + 1;
 

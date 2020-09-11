@@ -42,10 +42,10 @@ public class MainActivity extends AppCompatActivity implements ScanResultReceive
 
     RecyclerView rv_main;
 
-    String[] textMain = {"Total Purchase", "Request", "QC", "OpenBox", "Customer Used", "Refurbised", "Stores", "warehouse", "Return","Logout","Test"};
+    String[] textMain = {"Total Purchase", "Request", "QC", "OpenBox", "Customer Used", "Refurbised", "Stores", "warehouse", "Return","Logout"};
     int[] imgMain = {R.drawable.request_icon, R.drawable.request_icon, R.drawable.request_icon,
             R.drawable.request_icon, R.drawable.request_icon, R.drawable.request_icon, R.drawable.request_icon, R.drawable.request_icon,R.drawable.request_icon,
-            R.drawable.request_icon,R.drawable.request_icon};
+            R.drawable.request_icon};
 
     ArrayList<MainCatogryModel> list = new ArrayList<>();
     MainAdapter mainAdapter;

@@ -255,7 +255,7 @@ public class WarehouseFragment extends Fragment implements RecyclerView.OnScroll
         });
     }
 
-    private void hitSpinnerApi() {
+    private void  hitSpinnerApi() {
         views.showProgress(getActivity());
         RequestQueue queue = Volley.newRequestQueue(getActivity());
         StringRequest request = new StringRequest(Request.Method.POST, Url.BASE_URL+"getbusiness", new com.android.volley.Response.Listener<String>() {
