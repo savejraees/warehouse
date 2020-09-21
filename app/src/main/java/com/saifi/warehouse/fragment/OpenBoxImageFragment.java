@@ -1,6 +1,7 @@
 package com.saifi.warehouse.fragment;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -26,6 +27,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.JsonObject;
@@ -39,7 +42,6 @@ import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 import com.saifi.warehouse.ImageActivity;
 import com.saifi.warehouse.MainActivity;
 import com.saifi.warehouse.R;
-import com.saifi.warehouse.adapter.OpenBoxSubAdapter;
 import com.saifi.warehouse.constant.ApiFactory;
 import com.saifi.warehouse.constant.ApiInterface;
 import com.saifi.warehouse.constant.Url;
@@ -78,7 +80,7 @@ public class OpenBoxImageFragment extends Fragment {
     File photoInvoiceFile = null;
     Uri photoUriInvoice;
     String mCurrentPhotoPathInvoice;
-    OpenBoxSubAdapter mIMGAdapter;
+    OpenBoxxSubAdapter mIMGAdapter;
     int bookingId;
     String fragmentType;
 
@@ -181,7 +183,7 @@ public class OpenBoxImageFragment extends Fragment {
             }
 
             rv_Invoice.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
-            mIMGAdapter = new OpenBoxSubAdapter(Invoicelist, getActivity());
+            mIMGAdapter = new OpenBoxxSubAdapter(Invoicelist, getActivity());
             rv_Invoice.setAdapter(mIMGAdapter);
 
         } catch (Exception e) {
@@ -323,9 +325,6 @@ public class OpenBoxImageFragment extends Fragment {
                                     fragmentTransaction.addToBackStack(null);
                                     fragmentTransaction.commit();
                                 }
-
-
-
                             } else {
                                 views.showToast(getActivity(), jsonObject.get("msg").getAsString());
                             }
@@ -345,6 +344,63 @@ public class OpenBoxImageFragment extends Fragment {
                     }
                 });
 
+    }
+
+    public class OpenBoxxSubAdapter extends RecyclerView.Adapter<OpenBoxxSubAdapter.ListViewHolder> {
+
+        ArrayList<ImageModel> list;
+        Context context;
+
+        public OpenBoxxSubAdapter(ArrayList<ImageModel> list, Context context) {
+            this.context = context;
+            this.list = list;
+        }
+
+        @Override
+        public OpenBoxxSubAdapter.ListViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            LayoutInflater inflater = LayoutInflater.from(context);
+            View view = inflater.inflate(R.layout.row_image, null);
+
+            return new OpenBoxxSubAdapter.ListViewHolder(view);
+        }
+
+        @Override
+        public void onBindViewHolder(OpenBoxxSubAdapter.ListViewHolder holder, final int position) {
+            final ImageModel imageModel = list.get(position);
+            holder.image.setImageBitmap(imageModel.getImageMobile());
+            holder.close.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    removeAt(position);
+                }
+            });
+        }
+
+        public void removeAt(int position) {
+            list.remove(position);
+            notifyItemRemoved(position);
+            notifyItemChanged(position);
+            imagePathListInvoice.remove(position);
+        }
+
+        @Override
+        public int getItemCount() {
+            return list.size();
+        }
+
+        class ListViewHolder extends RecyclerView.ViewHolder {
+
+            ImageView image;
+            TextView close;
+
+            public ListViewHolder(View itemView) {
+                super(itemView);
+
+                image = itemView.findViewById(R.id.ivGallery);
+                close = itemView.findViewById(R.id.badge_view);
+            }
+
+        }
     }
 
 }
