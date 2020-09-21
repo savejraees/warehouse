@@ -30,7 +30,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.google.gson.JsonObject;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.MultiplePermissionsReport;
@@ -343,7 +342,6 @@ public class OpenBoxImageFragment extends Fragment {
 
                     }
                 });
-
     }
 
     public class OpenBoxxSubAdapter extends RecyclerView.Adapter<OpenBoxxSubAdapter.ListViewHolder> {
