@@ -72,7 +72,7 @@ public class StoresFragment extends Fragment implements RecyclerView.OnScrollCha
 
     int ID_TabData;
     Spinner storeSpinner;
-   static public int ID_storeSpinner;
+    static public int ID_storeSpinner;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -199,6 +199,17 @@ public class StoresFragment extends Fragment implements RecyclerView.OnScrollCha
                 }
             });
 
+            if(index==-1){
+                StoreDatumTabModel totalModel1 = list.get(0);
+                listData2.clear();
+                currentPage =1;
+
+                index = 0;
+
+                ID_TabData = totalModel1.getId();
+                Log.d("saklajsza",""+ID_TabData);
+                hitTabDataApi();
+            }
 
             if (index == position) {
                 holder.txtTab.setTextColor(Color.parseColor("#DDA90C"));
