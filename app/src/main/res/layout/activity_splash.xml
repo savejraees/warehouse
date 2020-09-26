@@ -29,7 +29,7 @@
            app:layout_constraintTop_toBottomOf="@+id/imgscreen"
            app:layout_constraintLeft_toRightOf="parent"
            app:layout_constraintRight_toLeftOf="parent"
-           android:text="Warehouse"
+           android:text="Store"
            android:textStyle="italic"
            android:textAllCaps="true">
 
