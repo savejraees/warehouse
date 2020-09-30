@@ -149,9 +149,7 @@
                     android:textAllCaps="false"
                     android:textColor="@android:color/white"
                     android:background="@drawable/loginbuttonshape"
-                    android:text="Submit"
-
-                    />
+                    android:text="Submit"/>
             </LinearLayout>
         </LinearLayout>
     </androidx.cardview.widget.CardView>
