@@ -9,7 +9,7 @@
     android:paddingLeft="10dp"
     android:paddingRight="10dp"
     android:orientation="vertical"
-    android:paddingBottom="20dp">
+    android:paddingBottom="50dp">
 
     <LinearLayout
         android:id="@+id/linearAllQc"
