@@ -30,6 +30,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.saifi.warehouse.MainActivity;
 import com.saifi.warehouse.R;
 import com.saifi.warehouse.adapter.AllAdapterQC;
@@ -208,8 +210,12 @@ public class WarehouseFragment extends Fragment implements RecyclerView.OnScroll
         listData.clear();
         //   listDataSearch.clear();
 
+        Gson gson = new GsonBuilder()
+                .setLenient()
+                .create();
+
         Retrofit retrofit = new Retrofit.Builder()
-                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create(gson))
                  .baseUrl(Url.BASE_URL).client(getUnsafeOkHttpClient().build())
                 .build();
 

@@ -21,6 +21,8 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.saifi.warehouse.MainActivity;
 import com.saifi.warehouse.R;
 import com.saifi.warehouse.adapter.OpenBoxAdapter;
@@ -118,7 +120,12 @@ public class StoresFragment extends Fragment implements RecyclerView.OnScrollCha
 
     private void hitTabApi() {
         views.showProgress(getActivity());
-        Retrofit retrofit = new Retrofit.Builder() .baseUrl(Url.BASE_URL).client(getUnsafeOkHttpClient().build()).addConverterFactory(GsonConverterFactory.create()).build();
+        Gson gson = new GsonBuilder()
+                .setLenient()
+                .create();
+
+        Retrofit retrofit = new Retrofit.Builder() .baseUrl(Url.BASE_URL).client(getUnsafeOkHttpClient().build())
+                .addConverterFactory(GsonConverterFactory.create(gson)).build();
 
         ApiInterface api = retrofit.create(ApiInterface.class);
         Call<StatusTabModel> call = api.hitStatusTabApi(Url.key);

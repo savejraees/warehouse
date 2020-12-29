@@ -21,6 +21,8 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.saifi.warehouse.MainActivity;
 import com.saifi.warehouse.R;
 import com.saifi.warehouse.adapter.OpenBoxAdapter;
@@ -176,9 +178,12 @@ public class RefurbisedFragment extends Fragment implements RecyclerView.OnScrol
     private void hitApi() {
         views.showProgress(getActivity());
         listData.clear();
-        
+        Gson gson = new GsonBuilder()
+                .setLenient()
+                .create();
+
         Retrofit retrofit = new Retrofit.Builder()
-                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create(gson))
                  .baseUrl(Url.BASE_URL).client(getUnsafeOkHttpClient().build())
                 .build();
 

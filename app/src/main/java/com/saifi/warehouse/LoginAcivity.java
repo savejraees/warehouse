@@ -67,8 +67,12 @@ public class LoginAcivity extends AppCompatActivity {
 
     private void hitLoginApi() {
         views.showProgress(LoginAcivity.this);
+        Gson gson = new GsonBuilder()
+                .setLenient()
+                .create();
+
         Retrofit retrofit = new Retrofit.Builder()
-                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create(gson))
                  .baseUrl(Url.BASE_URL).client(getUnsafeOkHttpClient().build())
                 .build();
 

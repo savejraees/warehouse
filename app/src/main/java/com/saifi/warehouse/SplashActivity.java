@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.saifi.warehouse.constant.ApiInterface;
 import com.saifi.warehouse.constant.SessonManager;
 import com.saifi.warehouse.constant.Url;
@@ -57,8 +59,11 @@ public class SplashActivity extends Activity {
     private void hitStatusApi() {
         views.showProgress(SplashActivity.this);
 
+        Gson gson = new GsonBuilder()
+                .setLenient()
+                .create();
         Retrofit retrofit = new Retrofit.Builder()
-                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create(gson))
                  .baseUrl(Url.BASE_URL)
                 .client(getUnsafeOkHttpClient().build())
                 .build();

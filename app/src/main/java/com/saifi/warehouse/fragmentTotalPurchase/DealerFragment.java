@@ -22,6 +22,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.saifi.warehouse.MainActivity;
 import com.saifi.warehouse.R;
 import com.saifi.warehouse.constant.ApiInterface;
@@ -91,8 +93,12 @@ public class DealerFragment extends Fragment implements RecyclerView.OnScrollCha
         listData.clear();
         //   listDataSearch.clear();
 
+        Gson gson = new GsonBuilder()
+                .setLenient()
+                .create();
+
         Retrofit retrofit = new Retrofit.Builder()
-                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create(gson))
                  .baseUrl(Url.BASE_URL).client(getUnsafeOkHttpClient().build())
                 .build();
 

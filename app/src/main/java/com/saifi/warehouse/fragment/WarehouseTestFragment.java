@@ -16,6 +16,8 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 
 import com.google.android.material.tabs.TabLayout;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.saifi.warehouse.R;
 import com.saifi.warehouse.constant.ApiInterface;
 import com.saifi.warehouse.constant.Url;
@@ -104,8 +106,11 @@ public class WarehouseTestFragment extends Fragment {
 
     private void hitTabApi() {
         views.showProgress(getActivity());
+        Gson gson = new GsonBuilder()
+                .setLenient()
+                .create();
         Retrofit retrofit = new Retrofit.Builder() .baseUrl(Url.BASE_URL).client(getUnsafeOkHttpClient().build())
-                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
 
         ApiInterface api = retrofit.create(ApiInterface.class);

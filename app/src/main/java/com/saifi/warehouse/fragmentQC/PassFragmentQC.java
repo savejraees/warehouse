@@ -17,6 +17,8 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.saifi.warehouse.R;
 import com.saifi.warehouse.adapter.AllAdapterQC;
 import com.saifi.warehouse.adapter.PassQcAdapter;
@@ -117,8 +119,12 @@ public class PassFragmentQC extends Fragment implements RecyclerView.OnScrollCha
         listData.clear();
         //   listDataSearch.clear();
 
+        Gson gson = new GsonBuilder()
+                .setLenient()
+                .create();
+
         Retrofit retrofit = new Retrofit.Builder()
-                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create(gson))
                  .baseUrl(Url.BASE_URL).client(getUnsafeOkHttpClient().build())
                 .build();
 
